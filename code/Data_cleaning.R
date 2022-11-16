@@ -93,6 +93,13 @@ Data <- dbGetQuery(mydb, "SELECT
 
 dbDisconnect(mydb)
 
+##***********###
+# Generate empty CleanData ####
+##***********###
+
+CleanData <- data.frame(id = 1:nrow(Data))
+
+
 # SES ####
 
 # EDUCATION ####
@@ -102,6 +109,13 @@ dbDisconnect(mydb)
 # CONTACT ####
 
 # HISTORIQUE ####
+unique(Data$UL_ENC_AN_PASSE)[1:10]
+table(Data$UL_ENC_AN_PASSE)[1:100]
+CleanData$historic_totalCollectedLastYear <- gsub(",", ".",
+                                                  Data$UL_ENC_AN_PASSE)
+CleanData$historic_totalCollectedLastYear[which(substr(CleanData$historic_totalCollectedLastYear, 1, 1) == ".")] <- paste0("0", CleanData$historic_totalCollectedLastYear[which(substr(CleanData$historic_totalCollectedLastYear, 1, 1) == ".")])
+CleanData$historic_totalCollectedLastYear <- as.numeric(CleanData$historic_totalCollectedLastYear)
+table(CleanData$historic_totalCollectedLastYear)[1:50]
 
 # PROSPECTIF ####
 
