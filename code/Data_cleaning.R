@@ -100,6 +100,21 @@ dbDisconnect(mydb)
 CleanData <- data.frame(id = 1:nrow(Data))
 
 
+##***********###
+# Function to clean raw FUL numeric vars ####
+##***********###
+
+clean_raw_num <- function(raw_data_vector){
+  output <- gsub(",", ".", raw_data_vector)
+  output[which(substr(output, 1, 1) == ".")] <- paste0("0", output[which(substr(output, 1, 1) == ".")])
+  output <- as.numeric(output)
+  return(output)
+}
+
+##***********###
+# Cleaning ####
+##***********###
+
 # SES ####
 
 # EDUCATION ####
@@ -109,15 +124,23 @@ CleanData <- data.frame(id = 1:nrow(Data))
 # CONTACT ####
 
 # HISTORIQUE ####
+
+# Montant totale de l'encaissement de l'an passé
 unique(Data$UL_ENC_AN_PASSE)[1:10]
 table(Data$UL_ENC_AN_PASSE)[1:100]
-CleanData$historic_totalCollectedLastYear <- gsub(",", ".",
-                                                  Data$UL_ENC_AN_PASSE)
-CleanData$historic_totalCollectedLastYear[which(substr(CleanData$historic_totalCollectedLastYear, 1, 1) == ".")] <- paste0("0", CleanData$historic_totalCollectedLastYear[which(substr(CleanData$historic_totalCollectedLastYear, 1, 1) == ".")])
-CleanData$historic_totalCollectedLastYear <- as.numeric(CleanData$historic_totalCollectedLastYear)
+CleanData$historic_totalCollectedLastYear <- clean_raw_num(Data$UL_ENC_AN_PASSE)
 table(CleanData$historic_totalCollectedLastYear)[1:50]
 
 # PROSPECTIF ####
+
+# Montant total des engagements à vie limité
+Data$UL_ENG_VIE_LIMIT[1:15] 
+sum(is.na(Data$UL_ENG_VIE_LIMIT))
+unique(Data$UL_ENG_VIE_LIMIT)[1:10]
+table(Data$UL_ENG_VIE_LIMIT)[1:100]
+CleanData$prospectif_totalCommittedLifeLimited <- clean_raw_num(Data$UL_ENG_VIE_LIMIT)
+table(CleanData$prospectif_totalCommittedLifeLimited)[1:50]
+hist(CleanData$prospectif_totalCommittedLifeLimited)
 
 
 
