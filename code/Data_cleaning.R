@@ -128,8 +128,37 @@ clean_raw_num <- function(raw_data_vector){
 # Montant totale de l'encaissement de l'an passé
 unique(Data$UL_ENC_AN_PASSE)[1:10]
 table(Data$UL_ENC_AN_PASSE)[1:100]
-CleanData$historic_totalCollectedLastYear <- clean_raw_num(Data$UL_ENC_AN_PASSE)
-table(CleanData$historic_totalCollectedLastYear)[1:50]
+CleanData$historic_CollectedLastYear_totalAmount <- clean_raw_num(Data$UL_ENC_AN_PASSE)
+table(CleanData$historic_CollectedLastYear_totalAmount)[1:50]
+
+# Niveau cercle donateur FUL
+## https://www.ulaval.ca/fondation/decouvrir/reconnaissance/paliers-de-dons/
+Data$UL_ENG_GC_LVL[1:15] 
+sum(is.na(Data$UL_ENG_GC_LVL))
+unique(Data$UL_ENG_GC_LVL)[1:10]
+table(Data$UL_ENG_GC_LVL)
+
+#### Gouverneur
+table(Data$UL_ENG_GC_LVL)
+CleanData$historic_donationLevel_gouverneur <- 0
+CleanData$historic_donationLevel_gouverneur[Data$UL_ENG_GC_LVL == "GOUVERNEUR"] <- 1
+table(CleanData$historic_donationLevel_gouverneur)
+
+#### Commandeur
+table(Data$UL_ENG_GC_LVL)
+CleanData$historic_donationLevel_commandeur <- 0
+CleanData$historic_donationLevel_commandeur[Data$UL_ENG_GC_LVL == "COMMANDEUR"] <- 1
+table(CleanData$historic_donationLevel_commandeur)
+
+#### Cercle rectrice - Chevalier
+table(Data$UL_ENG_GC_LVL)
+CleanData$historic_donationLevel_commandeur <- 0
+CleanData$historic_donationLevel_commandeur[Data$UL_ENG_GC_LVL == "COMMANDEUR"] <- 1
+table(CleanData$historic_donationLevel_commandeur)
+
+### AUSSI CRÉER UNE VARIABLE ORDINALE
+
+
 
 # PROSPECTIF ####
 
@@ -138,10 +167,132 @@ Data$UL_ENG_VIE_LIMIT[1:15]
 sum(is.na(Data$UL_ENG_VIE_LIMIT))
 unique(Data$UL_ENG_VIE_LIMIT)[1:10]
 table(Data$UL_ENG_VIE_LIMIT)[1:100]
-CleanData$prospectif_totalCommittedLifeLimited <- clean_raw_num(Data$UL_ENG_VIE_LIMIT)
-table(CleanData$prospectif_totalCommittedLifeLimited)[1:50]
-hist(CleanData$prospectif_totalCommittedLifeLimited)
+CleanData$prospectif_CommittedLifeLimited_totalAmount <- clean_raw_num(Data$UL_ENG_VIE_LIMIT)
+table(CleanData$prospectif_CommittedLifeLimited_totalAmount)[1:50]
+hist(CleanData$prospectif_CommittedLifeLimited_totalAmount)
 
+# Montant total des promesses de don ouvertes
+Data$UL_MNT_PD_OUV[1:15] 
+sum(is.na(Data$UL_MNT_PD_OUV))
+unique(Data$UL_MNT_PD_OUV)[1:10]
+table(Data$UL_MNT_PD_OUV)
+CleanData$prospectif_openPledges_totalAmount <- clean_raw_num(Data$UL_MNT_PD_OUV)
+table(CleanData$prospectif_openPledges_totalAmount)[1:50]
+hist(CleanData$prospectif_openPledges_totalAmount)
+
+# Montant versé des promesses de don ouvertes
+Data$UL_MT_VERSE_PD_OUV[1:15] 
+sum(is.na(Data$UL_MT_VERSE_PD_OUV))
+unique(Data$UL_MT_VERSE_PD_OUV)[1:10]
+table(Data$UL_MT_VERSE_PD_OUV)
+CleanData$prospectif_openPledges_paid <- clean_raw_num(Data$UL_MT_VERSE_PD_OUV)
+table(CleanData$prospectif_openPledges_paid)[1:50]
+hist(CleanData$prospectif_openPledges_paid)
+
+# Solde des promesses de don ouvertes
+Data$UL_SOLDE_PD_OUV[1:15] 
+sum(is.na(Data$UL_SOLDE_PD_OUV))
+unique(Data$UL_SOLDE_PD_OUV)[1:10]
+table(Data$UL_SOLDE_PD_OUV)[1:100]
+CleanData$prospectif_openPledges_balance <- clean_raw_num(Data$UL_SOLDE_PD_OUV)
+table(CleanData$prospectif_openPledges_balance)[1:50]
+hist(CleanData$prospectif_openPledges_balance)
+
+# Date de début des promesses de don ouvertes
+Data$UL_DT_DEBUT_PD_OUV[1:15] 
+sum(is.na(Data$UL_DT_DEBUT_PD_OUV))
+unique(Data$UL_DT_DEBUT_PD_OUV)[1:10]
+table(Data$UL_DT_DEBUT_PD_OUV)[1:100]
+CleanData$prospectif_openPledges_startDate <- as.Date(Data$UL_DT_DEBUT_PD_OUV)
+table(CleanData$prospectif_openPledges_startDate)[1:50]
+hist(CleanData$prospectif_openPledges_startDate,
+     breaks = "month")
+
+# Date de fin des promesses de don ouvertes
+Data$UL_DT_FIN_PD_OUV[1:15] 
+sum(is.na(Data$UL_DT_FIN_PD_OUV))
+unique(Data$UL_DT_FIN_PD_OUV)[1:10]
+table(Data$UL_DT_FIN_PD_OUV)[1:100]
+CleanData$prospectif_openPledges_endDate <- as.Date(Data$UL_DT_FIN_PD_OUV)
+table(CleanData$prospectif_openPledges_endDate)[1:50]
+hist(CleanData$prospectif_openPledges_endDate,
+     breaks = "month")
+
+# Montant attendu pour l'année courante des pormesse ouvertes
+Data$UL_MNT_V01_PD_OUV[1:15] 
+sum(is.na(Data$UL_MNT_V01_PD_OUV))
+unique(Data$UL_MNT_V01_PD_OUV)[1:10]
+table(Data$UL_MNT_V01_PD_OUV)[1:100]
+CleanData$prospectif_openPledges_xAmount2022 <- clean_raw_num(Data$UL_MNT_V01_PD_OUV)
+table(CleanData$prospectif_openPledges_xAmount2022)[1:50]
+hist(CleanData$prospectif_openPledges_xAmount2022)
+
+# Montant attendu pour l'année courante + 1 des pormesse ouvertes
+Data$UL_MNT_V02_PD_OUV[1:15] 
+sum(is.na(Data$UL_MNT_V02_PD_OUV))
+unique(Data$UL_MNT_V02_PD_OUV)[1:10]
+table(Data$UL_MNT_V02_PD_OUV)[1:100]
+CleanData$prospectif_openPledges_xAmount2023 <- clean_raw_num(Data$UL_MNT_V02_PD_OUV)
+table(CleanData$prospectif_openPledges_xAmount2023)[1:50]
+hist(CleanData$prospectif_openPledges_xAmount2023)
+
+# Montant attendu pour l'année courante + 2 des pormesse ouvertes
+Data$UL_MNT_V03_PD_OUV[1:15] 
+sum(is.na(Data$UL_MNT_V03_PD_OUV))
+unique(Data$UL_MNT_V03_PD_OUV)[1:10]
+table(Data$UL_MNT_V03_PD_OUV)[1:100]
+CleanData$prospectif_openPledges_xAmount2024 <- clean_raw_num(Data$UL_MNT_V03_PD_OUV)
+table(CleanData$prospectif_openPledges_xAmount2024)[1:50]
+hist(CleanData$prospectif_openPledges_xAmount2024)
+
+# Montant attendu pour l'année courante + 3 des pormesse ouvertes
+Data$UL_MNT_V04_PD_OUV[1:15] 
+sum(is.na(Data$UL_MNT_V04_PD_OUV))
+unique(Data$UL_MNT_V04_PD_OUV)[1:10]
+table(Data$UL_MNT_V04_PD_OUV)[1:100]
+CleanData$prospectif_openPledges_xAmount2025 <- clean_raw_num(Data$UL_MNT_V04_PD_OUV)
+table(CleanData$prospectif_openPledges_xAmount2025)[1:50]
+hist(CleanData$prospectif_openPledges_xAmount2025)
+
+# Montant attendu pour l'année courante + 4 des pormesse ouvertes
+Data$UL_MNT_V05_PD_OUV[1:15] 
+sum(is.na(Data$UL_MNT_V05_PD_OUV))
+unique(Data$UL_MNT_V05_PD_OUV)[1:10]
+table(Data$UL_MNT_V05_PD_OUV)[1:100]
+CleanData$prospectif_openPledges_xAmount2026 <- clean_raw_num(Data$UL_MNT_V05_PD_OUV)
+table(CleanData$prospectif_openPledges_xAmount2026)[1:50]
+sum(is.na(CleanData$prospectif_openPledges_xAmount2026))
+hist(CleanData$prospectif_openPledges_xAmount2026)
+
+# Montant attendu pour l'année courante + 5 des pormesse ouvertes
+Data$UL_MNT_V06_PD_OUV[1:15] 
+sum(is.na(Data$UL_MNT_V06_PD_OUV))
+unique(Data$UL_MNT_V06_PD_OUV)[1:10]
+table(Data$UL_MNT_V06_PD_OUV)[1:100]
+CleanData$prospectif_openPledges_xAmount2027 <- clean_raw_num(Data$UL_MNT_V06_PD_OUV)
+table(CleanData$prospectif_openPledges_xAmount2027)[1:50]
+sum(is.na(CleanData$prospectif_openPledges_xAmount2027))
+hist(CleanData$prospectif_openPledges_xAmount2027)
+
+# Nombre de promesses de don ouvertes
+Data$UL_NBR_PD_OUV[1:15] 
+sum(is.na(Data$UL_NBR_PD_OUV))
+unique(Data$UL_NBR_PD_OUV)[1:10]
+table(Data$UL_NBR_PD_OUV)
+CleanData$prospectif_openPledges_number <- clean_raw_num(Data$UL_NBR_PD_OUV)
+table(CleanData$prospectif_openPledges_number)[1:50]
+sum(is.na(CleanData$prospectif_openPledges_number))
+
+# Promesse illimitée
+Data$UL_UNLIMIT_FLG[1:15] 
+sum(is.na(Data$UL_UNLIMIT_FLG))
+unique(Data$UL_UNLIMIT_FLG)[1:10]
+table(Data$UL_UNLIMIT_FLG)
+CleanData$prospectif_unlimitedPledge <- NA
+CleanData$prospectif_unlimitedPledge[Data$UL_UNLIMIT_FLG==""] <- 0
+CleanData$prospectif_unlimitedPledge[Data$UL_UNLIMIT_FLG=="Y"] <- 1
+table(CleanData$prospectif_unlimitedPledge)
+sum(is.na(CleanData$prospectif_unlimitedPledge))
 
 
 
