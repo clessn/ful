@@ -87,7 +87,10 @@ Data <- dbGetQuery(mydb, "SELECT
                           UL_ENG_GC_LVL,
                           UL_DT_PREM_DON,
                           UL_DON_ASS_VIE,
-                          UL_DON_PLANIF
+                          UL_DON_PLANIF,
+                          UL_RSLT_D_A_SOL,
+                          UL_NBR_REFUS,
+                          COMPLETED_DT
                             FROM data_all
                             ORDER BY RANDOM() LIMIT 50000")
 
@@ -111,6 +114,11 @@ clean_raw_num <- function(raw_data_vector){
   return(output)
 }
 
+minmaxNormalization <- function(x) {
+  return((x-min(x, na.rm = T))/(max(x, na.rm = T)-min(x, na.rm = T)))
+}
+
+
 ##***********###
 # Cleaning ####
 ##***********###
@@ -122,6 +130,24 @@ clean_raw_num <- function(raw_data_vector){
 # EMPLOI ####
 
 # CONTACT ####
+
+# Nombre de refus pour les communications (SOLMAS, SOLCNV, SUISOL et SOLPER)
+unique(Data$UL_NBR_REFUS)[1:10]
+table(Data$UL_NBR_REFUS)
+CleanData$contact_declineCommunications_number <- minmaxNormalization(clean_raw_num(Data$UL_NBR_REFUS))
+table(CleanData$contact_declineCommunications_number)
+
+
+# Date de la dernière communication
+Data$COMPLETED_DT[1:15] 
+sum(is.na(Data$COMPLETED_DT))
+unique(Data$COMPLETED_DT)[1:10]
+table(Data$COMPLETED_DT)[1:100]
+CleanData$contact_lastCommunicationDate <- as.Date(Data$COMPLETED_DT)
+table(CleanData$contact_lastCommunicationDate)[1:50]
+hist(CleanData$contact_lastCommunicationDate,
+     breaks = "year")
+
 
 # HISTORIQUE ####
 
@@ -150,13 +176,76 @@ CleanData$historic_donationLevel_commandeur <- 0
 CleanData$historic_donationLevel_commandeur[Data$UL_ENG_GC_LVL == "COMMANDEUR"] <- 1
 table(CleanData$historic_donationLevel_commandeur)
 
+#### Cercle rectrice - Membre
+table(Data$UL_ENG_GC_LVL)
+CleanData$historic_donationLevel_recMember <- 0
+CleanData$historic_donationLevel_recMember[Data$UL_ENG_GC_LVL == "RECMEMBRE"] <- 1
+table(CleanData$historic_donationLevel_recMember)
+
 #### Cercle rectrice - Chevalier
 table(Data$UL_ENG_GC_LVL)
-CleanData$historic_donationLevel_commandeur <- 0
-CleanData$historic_donationLevel_commandeur[Data$UL_ENG_GC_LVL == "COMMANDEUR"] <- 1
-table(CleanData$historic_donationLevel_commandeur)
+CleanData$historic_donationLevel_recChevalier <- 0
+CleanData$historic_donationLevel_recChevalier[Data$UL_ENG_GC_LVL == "RECCHEVAL"] <- 1
+table(CleanData$historic_donationLevel_recChevalier)
 
-### AUSSI CRÉER UNE VARIABLE ORDINALE
+#### Cercle rectrice - Grand Chevalier
+table(Data$UL_ENG_GC_LVL)
+CleanData$historic_donationLevel_recGrandChevalier <- 0
+CleanData$historic_donationLevel_recGrandChevalier[Data$UL_ENG_GC_LVL == "RECGRCHEV"] <- 1
+table(CleanData$historic_donationLevel_recGrandChevalier)
+
+#### Cercle rectrice - Officier
+table(Data$UL_ENG_GC_LVL)
+CleanData$historic_donationLevel_recOfficier <- 0
+CleanData$historic_donationLevel_recOfficier[Data$UL_ENG_GC_LVL == "RECOFFICI"] <- 1
+table(CleanData$historic_donationLevel_recOfficier)
+
+#### Cercle rectrice - Grand Officier
+table(Data$UL_ENG_GC_LVL)
+CleanData$historic_donationLevel_recGrandOfficier <- 0
+CleanData$historic_donationLevel_recGrandOfficier[Data$UL_ENG_GC_LVL == "RECGROFFI"] <- 1
+table(CleanData$historic_donationLevel_recGrandOfficier)
+
+#### Membre du Cercle de Monseigneur de Laval
+table(Data$UL_ENG_GC_LVL)
+CleanData$historic_donationLevel_msgnrLaval <- 0
+CleanData$historic_donationLevel_msgnrLaval[Data$UL_ENG_GC_LVL == "MSGNRLAVAL"] <- 1
+table(CleanData$historic_donationLevel_msgnrLaval)
+
+#### Variable ordinale
+table(Data$UL_ENG_GC_LVL)
+CleanData$historic_donationLevel <- 0 # No donation level: 0
+CleanData$historic_donationLevel[CleanData$historic_donationLevel_gouverneur == 1] <- 0.125
+CleanData$historic_donationLevel[CleanData$historic_donationLevel_commandeur == 1] <- 0.25
+CleanData$historic_donationLevel[CleanData$historic_donationLevel_recMember == 1] <- 0.375
+CleanData$historic_donationLevel[CleanData$historic_donationLevel_recMember == 1] <- 0.375
+CleanData$historic_donationLevel[CleanData$historic_donationLevel_recChevalier == 1] <- 0.5
+CleanData$historic_donationLevel[CleanData$historic_donationLevel_recGrandChevalier == 1] <- 0.625
+CleanData$historic_donationLevel[CleanData$historic_donationLevel_recOfficier == 1] <- 0.75
+CleanData$historic_donationLevel[CleanData$historic_donationLevel_recGrandOfficier == 1] <- 0.875
+CleanData$historic_donationLevel[CleanData$historic_donationLevel_msgnrLaval == 1] <- 1
+table(CleanData$historic_donationLevel)
+
+# Date du premier don
+Data$UL_DT_PREM_DON[1:15] 
+sum(is.na(Data$UL_DT_PREM_DON))
+unique(Data$UL_DT_PREM_DON)[1:10]
+table(Data$UL_DT_PREM_DON)[1:100]
+CleanData$historic_dateFirstDonation <- as.Date(Data$UL_DT_PREM_DON)
+table(CleanData$historic_dateFirstDonation)[1:50]
+hist(CleanData$historic_dateFirstDonation,
+     breaks = "year")
+
+# Don par assurance vie (Y/N)
+Data$UL_DON_ASS_VIE[1:15] 
+sum(is.na(Data$UL_DON_ASS_VIE))
+unique(Data$UL_DON_ASS_VIE)[1:10]
+table(Data$UL_DON_ASS_VIE)
+CleanData$historic_lifeInsuranceDonation <- NA
+CleanData$historic_lifeInsuranceDonation[Data$UL_DON_ASS_VIE==""] <- 0
+CleanData$historic_lifeInsuranceDonation[Data$UL_DON_ASS_VIE=="OUI"] <- 1
+table(CleanData$historic_lifeInsuranceDonation)
+sum(is.na(CleanData$historic_lifeInsuranceDonation))
 
 
 
@@ -293,6 +382,17 @@ CleanData$prospectif_unlimitedPledge[Data$UL_UNLIMIT_FLG==""] <- 0
 CleanData$prospectif_unlimitedPledge[Data$UL_UNLIMIT_FLG=="Y"] <- 1
 table(CleanData$prospectif_unlimitedPledge)
 sum(is.na(CleanData$prospectif_unlimitedPledge))
+
+# Don planifié (Y/N)
+Data$UL_DON_PLANIF[1:15] 
+sum(is.na(Data$UL_DON_PLANIF))
+unique(Data$UL_DON_PLANIF)[1:10]
+table(Data$UL_DON_PLANIF)
+CleanData$prospectif_plannedDonation <- NA
+CleanData$prospectif_plannedDonation[Data$UL_DON_PLANIF==""] <- 0
+CleanData$prospectif_plannedDonation[Data$UL_DON_PLANIF=="OUI"] <- 1
+table(CleanData$prospectif_plannedDonation)
+sum(is.na(CleanData$prospectif_plannedDonation))
 
 
 
