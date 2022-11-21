@@ -514,7 +514,51 @@ CleanData$historic_donationsSecond2LastYear_paymentType_VB <- 0
 CleanData$historic_donationsSecond2LastYear_paymentType_VB[Data$UL_DON_ANN_TYP_3 == "VB"] <- 1
 table(CleanData$historic_donationsSecond2LastYear_paymentType_VB)
 
+#Année du dernier don
+table(Data$UL_ANN_DER_DON)
+CleanData$historic_YearLastDonation <- clean_raw_num(Data$UL_ANN_DER_DON)
+table(CleanData$historic_YearLastDonation)
 
+#Montant des dons/paiements versés à vie
+table(Data$UL_MNT_VERSE_VIE)[1:50]
+CleanData$historic_donationsLife_totalAmount <- clean_raw_num(Data$UL_MNT_VERSE_VIE)
+table(CleanData$historic_donationsLife_totalAmount)
+
+#Nombre d'années consécutives où des dons ont été effectués à partir de l'année courante.
+unique(Data$UL_CNS_YR_GIVING)[1:10]
+table(Data$UL_CNS_YR_GIVING)[1:100]
+CleanData$historic_donationsConsecutiveYears <- clean_raw_num(Data$UL_CNS_YR_GIVING)
+table(CleanData$historic_donationsConsecutiveYears)
+
+#Montant du don le plus important
+unique(Data$UL_DON_PLUS_IMP)[1:10]
+table(Data$UL_DON_PLUS_IMP)[1:100]
+CleanData$historic_donationsLife_highestAmount <- clean_raw_num(Data$UL_DON_PLUS_IMP)
+table(CleanData$historic_donationsLife_highestAmount)
+
+#Montant de la promesse de don la plus importante
+unique(Data$UL_PROM_PLUS_IMP)[1:10]
+table(Data$UL_PROM_PLUS_IMP)[1:100]
+CleanData$historic_pledgesLife_highestAmount <- clean_raw_num(Data$UL_PROM_PLUS_IMP)
+table(CleanData$historic_pledgesLife_highestAmount)
+
+#Montant total des engagements à vie
+unique(Data$UL_ENG_VIE)[1:10]
+table(Data$UL_ENG_VIE)[1:100]
+CleanData$historic_commitmentLife_totalAmount <- clean_raw_num(Data$UL_ENG_VIE)
+table(CleanData$historic_commitmentLife_totalAmount)
+
+#Le nombre d'engagements à vie
+unique(Data$UL_ENG_NBR_VIE)[1:10]
+table(Data$UL_ENG_NBR_VIE)[1:100]
+CleanData$historic_commitmentLife_number <- clean_raw_num(Data$UL_ENG_NBR_VIE)
+table(CleanData$historic_commitmentLife_number)
+
+#Montant totale de l'engagement de l'an passé
+unique(Data$UL_ENG_AN_PASSE)[1:10]
+table(Data$UL_ENG_AN_PASSE)[1:100]
+CleanData$historic_commitmentLastYear_totalAmount <- clean_raw_num(Data$UL_ENG_AN_PASSE)
+table(CleanData$historic_commitmentLastYear_totalAmount)
 
 
 # PROSPECTIF ####
