@@ -60,7 +60,7 @@ Data <- dbGetQuery(mydb, "SELECT
                           UL_DON_ANN_TYP_3,
                           UL_ANN_DER_DON,
                           UL_MNT_VERSE_VIE,
-                          TTL_YR_GIVING
+                          TTL_YR_GIVING,
                           UL_CNS_YR_GIVING,
                           UL_DON_PLUS_IMP,
                           UL_PROM_PLUS_IMP,
