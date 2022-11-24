@@ -1,0 +1,14 @@
+---
+title: "Variables nécessitant des précisions"
+author: "CLESSN"
+date: "2022-11-24"
+output: pdf_document
+---
+
+# UL_ACAD_ORG_01
+
+*** Faire la liste des codes à 3 lettres et demander la signification de chacun
+
+# UL_MAJOR1_CD_01
+
+*** Expliquer le problème
