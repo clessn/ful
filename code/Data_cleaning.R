@@ -560,6 +560,28 @@ table(Data$UL_ENG_AN_PASSE)[1:100]
 CleanData$historic_commitmentLastYear_totalAmount <- clean_raw_num(Data$UL_ENG_AN_PASSE)
 table(CleanData$historic_commitmentLastYear_totalAmount)
 
+#Nombre d'années où des dons ont été effectués
+unique(Data$TTL_YR_GIVING)[1:10]
+table(Data$TTL_YR_GIVING)[1:100]
+CleanData$historic_donations_numberYears <- clean_raw_num(Data$TTL_YR_GIVING)
+table(CleanData$historic_donations_numberYears)
+
+#historic_pledgesLife_highestAmount_startDate
+Data$UL_PPI_DT_START[1:15] 
+sum(is.na(Data$UL_PPI_DT_START))
+unique(Data$UL_PPI_DT_START)[1:10]
+table(Data$UL_PPI_DT_START)[1:100]
+CleanData$historic_pledgesLife_highestAmount_startDate <- as.Date(Data$UL_PPI_DT_START)
+table(CleanData$historic_pledgesLife_highestAmount_startDate)[1:50]
+
+#historic_pledgesLife_highestAmount_endDate
+Data$UL_PPI_DT_END[1:15] 
+sum(is.na(Data$UL_PPI_DT_END))
+unique(Data$UL_PPI_DT_END)[1:10]
+table(Data$UL_PPI_DT_END)[1:100]
+CleanData$historic_pledgesLife_highestAmount_startEND <- as.Date(Data$UL_PPI_DT_END)
+table(CleanData$historic_pledgesLife_highestAmount_startEND)[1:50]
+
 
 # PROSPECTIF ####
 
