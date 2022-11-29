@@ -49,7 +49,7 @@ Data <- dbGetQuery(mydb, "SELECT
                           UL_DT_DER_DON_3,
                           UL_AMT_DER_DON_3,
                           UL_TYP_DER_DON_3,
-                          UL_DON_ANN_YR_1
+                          UL_DON_ANN_YR_1,
                           UL_DON_ANN_AMT_1,
                           UL_DON_ANN_TYP_1,
                           UL_DON_ANN_YR_2,
@@ -60,7 +60,7 @@ Data <- dbGetQuery(mydb, "SELECT
                           UL_DON_ANN_TYP_3,
                           UL_ANN_DER_DON,
                           UL_MNT_VERSE_VIE,
-                          TTL_YR_GIVING
+                          TTL_YR_GIVING,
                           UL_CNS_YR_GIVING,
                           UL_DON_PLUS_IMP,
                           UL_PROM_PLUS_IMP,
@@ -760,7 +760,336 @@ CleanData$historic_donationsSecond2LastYear_paymentType_VB <- 0
 CleanData$historic_donationsSecond2LastYear_paymentType_VB[Data$UL_DON_ANN_TYP_3 == "VB"] <- 1
 table(CleanData$historic_donationsSecond2LastYear_paymentType_VB)
 
+#Année du dernier don
+table(Data$UL_ANN_DER_DON)
+CleanData$historic_YearLastDonation <- clean_raw_num(Data$UL_ANN_DER_DON)
+table(CleanData$historic_YearLastDonation)
 
+#Montant des dons/paiements versés à vie
+table(Data$UL_MNT_VERSE_VIE)[1:50]
+CleanData$historic_donationsLife_totalAmount <- clean_raw_num(Data$UL_MNT_VERSE_VIE)
+table(CleanData$historic_donationsLife_totalAmount)
+
+#Nombre d'années consécutives où des dons ont été effectués à partir de l'année courante.
+unique(Data$UL_CNS_YR_GIVING)[1:10]
+table(Data$UL_CNS_YR_GIVING)[1:100]
+CleanData$historic_donationsConsecutiveYears <- clean_raw_num(Data$UL_CNS_YR_GIVING)
+table(CleanData$historic_donationsConsecutiveYears)
+
+#Montant du don le plus important
+unique(Data$UL_DON_PLUS_IMP)[1:10]
+table(Data$UL_DON_PLUS_IMP)[1:100]
+CleanData$historic_donationsLife_highestAmount <- clean_raw_num(Data$UL_DON_PLUS_IMP)
+table(CleanData$historic_donationsLife_highestAmount)
+
+#Montant de la promesse de don la plus importante
+unique(Data$UL_PROM_PLUS_IMP)[1:10]
+table(Data$UL_PROM_PLUS_IMP)[1:100]
+CleanData$historic_pledgesLife_highestAmount <- clean_raw_num(Data$UL_PROM_PLUS_IMP)
+table(CleanData$historic_pledgesLife_highestAmount)
+
+#Montant total des engagements à vie
+unique(Data$UL_ENG_VIE)[1:10]
+table(Data$UL_ENG_VIE)[1:100]
+CleanData$historic_commitmentLife_totalAmount <- clean_raw_num(Data$UL_ENG_VIE)
+table(CleanData$historic_commitmentLife_totalAmount)
+
+#Le nombre d'engagements à vie
+unique(Data$UL_ENG_NBR_VIE)[1:10]
+table(Data$UL_ENG_NBR_VIE)[1:100]
+CleanData$historic_commitmentLife_number <- clean_raw_num(Data$UL_ENG_NBR_VIE)
+table(CleanData$historic_commitmentLife_number)
+
+#Montant totale de l'engagement de l'an passé
+unique(Data$UL_ENG_AN_PASSE)[1:10]
+table(Data$UL_ENG_AN_PASSE)[1:100]
+CleanData$historic_commitmentLastYear_totalAmount <- clean_raw_num(Data$UL_ENG_AN_PASSE)
+table(CleanData$historic_commitmentLastYear_totalAmount)
+
+#Nombre d'années où des dons ont été effectués
+unique(Data$TTL_YR_GIVING)[1:10]
+table(Data$TTL_YR_GIVING)[1:100]
+CleanData$historic_donations_numberYears <- clean_raw_num(Data$TTL_YR_GIVING)
+table(CleanData$historic_donations_numberYears)
+
+#historic_pledgesLife_highestAmount_startDate
+Data$UL_PPI_DT_START[1:15] 
+sum(is.na(Data$UL_PPI_DT_START))
+unique(Data$UL_PPI_DT_START)[1:10]
+table(Data$UL_PPI_DT_START)[1:100]
+CleanData$historic_pledgesLife_highestAmount_startDate <- as.Date(Data$UL_PPI_DT_START)
+table(CleanData$historic_pledgesLife_highestAmount_startDate)[1:50]
+
+#historic_pledgesLife_highestAmount_endDate
+Data$UL_PPI_DT_END[1:15] 
+sum(is.na(Data$UL_PPI_DT_END))
+unique(Data$UL_PPI_DT_END)[1:10]
+table(Data$UL_PPI_DT_END)[1:100]
+CleanData$historic_pledgesLife_highestAmount_startEND <- as.Date(Data$UL_PPI_DT_END)
+table(CleanData$historic_pledgesLife_highestAmount_startEND)[1:50]
+
+#Date du dernier don
+Data$UL_DT_DER_DON_1[1:15] 
+sum(is.na(Data$UL_DT_DER_DON_1))
+unique(Data$UL_DT_DER_DON_1)[1:10]
+table(Data$UL_DT_DER_DON_1)[1:100]
+CleanData$historic_lastDonation_date <- as.Date(Data$UL_DT_DER_DON_1)
+table(CleanData$historic_lastDonation_date)[1:50]
+
+#Montant du dernier don
+unique(Data$UL_AMT_DER_DON_1)[1:10]
+table(Data$UL_AMT_DER_DON_1)[1:100]
+CleanData$historic_lastDonation_amount <- clean_raw_num(Data$UL_AMT_DER_DON_1)
+table(CleanData$historic_lastDonation_amount)
+
+#Type de paiement du dernier don
+table(Data$UL_TYP_DER_DON_1)
+
+#Type Action
+table(Data$UL_TYP_DER_DON_1)
+CleanData$historic_lastDonation_type_action <- 0
+CleanData$historic_lastDonation_type_action[Data$UL_TYP_DER_DON_1 == "ACTION"] <- 1
+table(CleanData$historic_lastDonation_type_action)
+
+#Type Bien
+table(Data$UL_TYP_DER_DON_1)
+CleanData$historic_lastDonation_type_bien <- 0
+CleanData$historic_lastDonation_type_bien[Data$UL_TYP_DER_DON_1 == "BIEN"] <- 1
+table(CleanData$historic_lastDonation_type_bien)
+
+#Type CC
+table(Data$UL_TYP_DER_DON_1)
+CleanData$historic_lastDonation_type_CC <- 0
+CleanData$historic_lastDonation_type_CC[Data$UL_TYP_DER_DON_1 == "CC"] <- 1
+table(CleanData$historic_lastDonation_type_CC)
+
+#Type CCFAC
+table(Data$UL_TYP_DER_DON_1)
+CleanData$historic_lastDonation_type_CCFAC <- 0
+CleanData$historic_lastDonation_type_CCFAC[Data$UL_TYP_DER_DON_1 == "CCFAC"] <- 1
+table(CleanData$historic_lastDonation_type_CCFAC)
+
+#Type CCLO
+table(Data$UL_TYP_DER_DON_1)
+CleanData$historic_lastDonation_type_CCLO <- 0
+CleanData$historic_lastDonation_type_CCLO[Data$UL_TYP_DER_DON_1 == "CCLO"] <- 1
+table(CleanData$historic_lastDonation_type_CCLO)
+
+#Type CH
+table(Data$UL_TYP_DER_DON_1)
+CleanData$historic_lastDonation_type_CH <- 0
+CleanData$historic_lastDonation_type_CH[Data$UL_TYP_DER_DON_1 == "CH"] <- 1
+table(CleanData$historic_lastDonation_type_CH)
+
+#Type cheque
+table(Data$UL_TYP_DER_DON_1)
+CleanData$historic_lastDonation_type_cheque <- 0
+CleanData$historic_lastDonation_type_cheque[Data$UL_TYP_DER_DON_1 == "CHEQUE"] <- 1
+table(CleanData$historic_lastDonation_type_cheque)
+
+#Type CO
+table(Data$UL_TYP_DER_DON_1)
+CleanData$historic_lastDonation_type_CO <- 0
+CleanData$historic_lastDonation_type_CO[Data$UL_TYP_DER_DON_1 == "CO"] <- 1
+table(CleanData$historic_lastDonation_type_CO)
+
+#Type mposte
+table(Data$UL_TYP_DER_DON_1)
+CleanData$historic_lastDonation_type_mposte <- 0
+CleanData$historic_lastDonation_type_mposte[Data$UL_TYP_DER_DON_1 == "MPOSTE"] <- 1
+table(CleanData$historic_lastDonation_type_mposte)
+
+#Type RR
+table(Data$UL_TYP_DER_DON_1)
+CleanData$historic_lastDonation_type_RR <- 0
+CleanData$historic_lastDonation_type_RR[Data$UL_TYP_DER_DON_1 == "RR"] <- 1
+table(CleanData$historic_lastDonation_type_RR)
+
+#Type RS
+table(Data$UL_TYP_DER_DON_1)
+CleanData$historic_lastDonation_type_RS <- 0
+CleanData$historic_lastDonation_type_RS[Data$UL_TYP_DER_DON_1 == "RS"] <- 1
+table(CleanData$historic_lastDonation_type_RS)
+
+#Type RU
+table(Data$UL_TYP_DER_DON_1)
+CleanData$historic_lastDonation_type_RU <- 0
+CleanData$historic_lastDonation_type_RU[Data$UL_TYP_DER_DON_1 == "RU"] <- 1
+table(CleanData$historic_lastDonation_type_RU)
+
+#Type VB
+table(Data$UL_TYP_DER_DON_1)
+CleanData$historic_lastDonation_type_VB <- 0
+CleanData$historic_lastDonation_type_VB[Data$UL_TYP_DER_DON_1 == "VB"] <- 1
+table(CleanData$historic_lastDonation_type_VB)
+
+#Date de l'avant-dernier don
+unique(Data$UL_DT_DER_DON_2)[1:10]
+table(Data$UL_DT_DER_DON_2)[1:100]
+CleanData$historic_penulDonation_date <- as.Date(Data$UL_DT_DER_DON_2)
+table(CleanData$historic_penulDonation_date)[1:50]
+
+#Montant de l'avant-dernier don
+unique(Data$UL_AMT_DER_DON_2)[1:10]
+table(Data$UL_AMT_DER_DON_2)[1:100]
+CleanData$historic_penulDonation_amount <- Data$UL_AMT_DER_DON_2
+table(CleanData$historic_penulDonation_amount)[1:50]
+
+#Type de paiement de l'avant-dernier don
+table(Data$UL_TYP_DER_DON_2)
+
+#Type Action
+table(Data$UL_TYP_DER_DON_2)
+CleanData$historic_penulDonation_type_action <- 0
+CleanData$historic_penulDonation_type_action[Data$UL_TYP_DER_DON_2 == "ACTION"] <- 1
+table(CleanData$historic_penulDonation_type_action)
+
+#Type Bien
+table(Data$UL_TYP_DER_DON_2)
+CleanData$historic_penulDonation_type_bien <- 0
+CleanData$historic_penulDonation_type_bien[Data$UL_TYP_DER_DON_2 == "BIEN"] <- 1
+table(CleanData$historic_penulDonation_type_bien)
+
+#Type CC
+table(Data$UL_TYP_DER_DON_2)
+CleanData$historic_penulDonation_type_CC <- 0
+CleanData$historic_penulDonation_type_CC[Data$UL_TYP_DER_DON_2 == "CC"] <- 1
+table(CleanData$historic_penulDonation_type_CC)
+
+#Type CCLO
+table(Data$UL_TYP_DER_DON_2)
+CleanData$historic_penulDonation_type_CCLO <- 0
+CleanData$historic_penulDonation_type_CCLO[Data$UL_TYP_DER_DON_2 == "CCLO"] <- 1
+table(CleanData$historic_penulDonation_type_CCLO)
+
+#Type CH
+table(Data$UL_TYP_DER_DON_2)
+CleanData$historic_penulDonation_type_CH <- 0
+CleanData$historic_penulDonation_type_CH[Data$UL_TYP_DER_DON_2 == "CH"] <- 1
+table(CleanData$historic_penulDonation_type_CH)
+
+#Type CO
+table(Data$UL_TYP_DER_DON_2)
+CleanData$historic_penulDonation_type_CO <- 0
+CleanData$historic_penulDonation_type_CO[Data$UL_TYP_DER_DON_2 == "CO"] <- 1
+table(CleanData$historic_penulDonation_type_CO)
+
+#Type mposte
+table(Data$UL_TYP_DER_DON_2)
+CleanData$historic_penulDonation_type_mposte <- 0
+CleanData$historic_penulDonation_type_mposte[Data$UL_TYP_DER_DON_2 == "MPOSTE"] <- 1
+table(CleanData$historic_penulDonation_type_mposte)
+
+#Type RR
+table(Data$UL_TYP_DER_DON_2)
+CleanData$historic_penulDonation_type_RR <- 0
+CleanData$historic_penulDonation_type_RR[Data$UL_TYP_DER_DON_2 == "RR"] <- 1
+table(CleanData$historic_penulDonation_type_RR)
+
+#Type RS
+table(Data$UL_TYP_DER_DON_2)
+CleanData$historic_penulDonation_type_RS <- 0
+CleanData$historic_penulDonation_type_RS[Data$UL_TYP_DER_DON_2 == "RS"] <- 1
+table(CleanData$historic_penulDonation_type_RS)
+
+#Type RU
+table(Data$UL_TYP_DER_DON_2)
+CleanData$historic_penulDonation_type_RU <- 0
+CleanData$historic_penulDonation_type_RU[Data$UL_TYP_DER_DON_2 == "RU"] <- 1
+table(CleanData$historic_penulDonation_type_RU)
+
+#Date de l'avant-avant-dernier don
+unique(Data$UL_DT_DER_DON_3)[1:10]
+table(Data$UL_DT_DER_DON_3)[1:100]
+CleanData$historic_second2LastDonation_date <- as.Date(Data$UL_DT_DER_DON_3)
+table(CleanData$historic_second2LastDonation_date)[1:50]
+
+#Montant de l'avant-avant-dernier don
+unique(Data$UL_AMT_DER_DON_3)[1:10]
+table(Data$UL_AMT_DER_DON_3)[1:100]
+CleanData$historic_second2LastDonation_amount <- Data$UL_AMT_DER_DON_3
+table(CleanData$historic_second2LastDonation_amount)[1:50]
+
+#Type de paiement de l'avant-avant-dernier don
+table(Data$UL_TYP_DER_DON_3)
+
+#Type Action
+table(Data$UL_TYP_DER_DON_3)
+CleanData$historic_second2LastDonation_type_action <- 0
+CleanData$historic_second2LastDonation_type_action[Data$UL_TYP_DER_DON_3 == "ACTION"] <- 1
+table(CleanData$historic_second2LastDonation_type_action)
+
+#Type Bien
+table(Data$UL_TYP_DER_DON_3)
+CleanData$historic_second2LastDonation_type_bien <- 0
+CleanData$historic_second2LastDonation_type_bien[Data$UL_TYP_DER_DON_3 == "BIEN"] <- 1
+table(CleanData$historic_second2LastDonation_type_bien)
+
+#Type CC
+table(Data$UL_TYP_DER_DON_3)
+CleanData$historic_second2LastDonation_type_CC <- 0
+CleanData$historic_second2LastDonation_type_CC[Data$UL_TYP_DER_DON_3 == "CC"] <- 1
+table(CleanData$historic_second2LastDonation_type_CC)
+
+#Type CCLO
+table(Data$UL_TYP_DER_DON_3)
+CleanData$historic_second2LastDonation_type_CCLO <- 0
+CleanData$historic_second2LastDonation_type_CCLO[Data$UL_TYP_DER_DON_3 == "CCLO"] <- 1
+table(CleanData$historic_second2LastDonation_type_CCLO)
+
+#Type CH
+table(Data$UL_TYP_DER_DON_3)
+CleanData$historic_second2LastDonation_type_CH <- 0
+CleanData$historic_second2LastDonation_type_CH[Data$UL_TYP_DER_DON_3 == "CH"] <- 1
+table(CleanData$historic_second2LastDonation_type_CH)
+
+#Type CO
+table(Data$UL_TYP_DER_DON_3)
+CleanData$historic_second2LastDonation_type_CO <- 0
+CleanData$historic_second2LastDonation_type_CO[Data$UL_TYP_DER_DON_3 == "CO"] <- 1
+table(CleanData$historic_second2LastDonation_type_CO)
+
+#Type mposte
+table(Data$UL_TYP_DER_DON_3)
+CleanData$historic_second2LastDonation_type_mposte <- 0
+CleanData$historic_second2LastDonation_type_mposte[Data$UL_TYP_DER_DON_3 == "MPOSTE"] <- 1
+table(CleanData$historic_second2LastDonation_type_mposte)
+
+#Type RR
+table(Data$UL_TYP_DER_DON_3)
+CleanData$historic_second2LastDonation_type_RR <- 0
+CleanData$historic_second2LastDonation_type_RR[Data$UL_TYP_DER_DON_3 == "RR"] <- 1
+table(CleanData$historic_second2LastDonation_type_RR)
+
+#Type RS
+table(Data$UL_TYP_DER_DON_3)
+CleanData$historic_second2LastDonation_type_RS <- 0
+CleanData$historic_second2LastDonation_type_RS[Data$UL_TYP_DER_DON_3 == "RS"] <- 1
+table(CleanData$historic_second2LastDonation_type_RS)
+
+#Type RU
+table(Data$UL_TYP_DER_DON_3)
+CleanData$historic_second2LastDonation_type_RU <- 0
+CleanData$historic_second2LastDonation_type_RU[Data$UL_TYP_DER_DON_3 == "RU"] <- 1
+table(CleanData$historic_second2LastDonation_type_RU)
+
+#Type TRBANC
+table(Data$UL_TYP_DER_DON_3)
+CleanData$historic_second2LastDonation_type_trbanc <- 0
+CleanData$historic_second2LastDonation_type_trbanc[Data$UL_TYP_DER_DON_3 == "TRBANC"] <- 1
+table(CleanData$historic_second2LastDonation_type_trbanc)
+
+#Type VB
+table(Data$UL_TYP_DER_DON_3)
+CleanData$historic_second2LastDonation_type_VB <- 0
+CleanData$historic_second2LastDonation_type_VB[Data$UL_TYP_DER_DON_3 == "VB"] <- 1
+table(CleanData$historic_second2LastDonation_type_VB)
+
+#Dernière année de dons annuels
+unique(Data$UL_DON_ANN_YR_1)[1:10]
+table(Data$UL_DON_ANN_YR_1)[1:100]
+CleanData$historic_donationsLastYear <- clean_raw_num(Data$UL_DON_ANN_YR_1)
+table(CleanData$historic_donationsLastYear)[1:50]
 
 
 # PROSPECTIF ####
