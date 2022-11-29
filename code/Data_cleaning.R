@@ -4,7 +4,7 @@
 ##***********###
 library(DBI)
 library(RSQLite)
-
+library(tidyverse)
 ##***********###
 # Get data from SQLite ####
 ##***********###
@@ -125,9 +125,234 @@ minmaxNormalization <- function(x) {
 
 # SES ####
 
+#Sexe
+table(Data$SEX)
+CleanData$ses_female <- NA
+CleanData$ses_female[Data$SEX == "F"] <- 1
+CleanData$ses_female[Data$SEX == "M"] <- 0
+table(CleanData$ses_female)
+
+#Date de décès
+#table(Data$DT_OF_DEATH)[1:100]
+#CleanData$ses_dead <- NA
+#CleanData$ses_dead[Data$DT_OF_DEATH == "NA"] <- 0
+#CleanData$ses_dead[Data$DT_OF_DEATH == ] <- 1
+
+#Age
+table(Data$AGE)[1:15]
+CleanData$ses_age34m <- NA
+CleanData$ses_age34m[Data$AGE >= 18 & Data$AGE < 35] <- 1
+table(CleanData$ses_age34m)
+
+CleanData$ses_age35_54 <- NA
+CleanData$ses_age35_54[Data$AGE >= 35 & Data$AGE < 55] <- 1
+table(CleanData$ses_age35_54)
+
+CleanData$ses_age55p <- NA
+CleanData$ses_age55p[Data$AGE >= 55] <- 1
+table(CleanData$ses_age55p)
+
+#langue
+table(Data$LANG_CD)[1:100]
+
+#Ville de domicile
+#table(Data$UL_ADR_P_H_CITY)[1:100]
+#CleanData$ses_ gsub("^.{0,6}", "", df$text_col)
+
+
+
+#État/province
+table(Data$UL_ADR_P_H_STATE)[1:100]
+CleanData$ses_origin_qc <- NA
+CleanData$ses_origin_qc[Data$UL_ADR_P_H_STATE == "QC"] <- 1
+table(CleanData$ses_origin_qc)
+
+CleanData$ses_origin_roc <- NA #autres provinces 
+CleanData$ses_origin_roc[Data$UL_ADR_P_H_STATE == "AB"] <- 1
+CleanData$ses_origin_roc[Data$UL_ADR_P_H_STATE == "MB"] <- 1
+CleanData$ses_origin_roc[Data$UL_ADR_P_H_STATE == "ON"] <- 1
+CleanData$ses_origin_roc[Data$UL_ADR_P_H_STATE == "BC"] <- 1
+CleanData$ses_origin_roc[Data$UL_ADR_P_H_STATE == "PE"] <- 1
+CleanData$ses_origin_roc[Data$UL_ADR_P_H_STATE == "NB"] <- 1
+CleanData$ses_origin_roc[Data$UL_ADR_P_H_STATE == "NS"] <- 1
+CleanData$ses_origin_roc[Data$UL_ADR_P_H_STATE == "NU"] <- 1
+CleanData$ses_origin_roc[Data$UL_ADR_P_H_STATE == "SK"] <- 1
+CleanData$ses_origin_roc[Data$UL_ADR_P_H_STATE == "NL"] <- 1
+CleanData$ses_origin_roc[Data$UL_ADR_P_H_STATE == "NT"] <- 1
+CleanData$ses_origin_roc[Data$UL_ADR_P_H_STATE == "YT"] <- 1
+table(CleanData$ses_origin_roc)
+
+table(Data$UL_ADR_P_H_PAYS)
+CleanData$ses_origin_other <- NA
+CleanData$ses_origin_other[Data$UL_ADR_P_H_PAYS != "Canada"] <- 1 #tous les autres pays
+
+table(CleanData$ses_origin_other)
+
+#code postal
+table(Data$UL_ADR_P_H_CP)
+CleanData$ses_postalcode <- NA
+CleanData$ses_postalcode <- gsub(" ", "", Data$UL_ADR_P_H_CP)
+CleanData$ses_postalcode <- tolower(CleanData$ses_postalcode)
+table(CleanData$ses_postalcode)
+
+
+
 # EDUCATION ####
 
+#Faculté du premier diplome
+table(Data$UL_ACAD_ORG_01)
+
+#Programme du premier diplome
+table(Data$UL_MAJOR1_CD_01)
+
+#Année de promotion du premier diplome
+table(Data$UL_AV_CLASS_YR_01)
+CleanData$education_yearFirstGraduation <- NA
+CleanData$education_yearFirstGraduation <- clean_raw_num(Data$UL_AV_CLASS_YR_01)
+table(CleanData$education_yearFirstGraduation)
+
+#Niveau d'étude du diplome le plus important
+table(Data$UL_EDUCATIO_LVL_PI)
+
+#Faculté du diplome le plus important
+table(Data$UL_ACAD_ORG_PI)
+
+#Année de promotion du diplome le plus important
+table(Data$UL_AV_CLASS_YR_PI)
+CleanData$education_yearMiGraduation <- NA
+CleanData$education_yearMiGraduation <- clean_raw_num(Data$UL_AV_CLASS_YR_PI)
+table(CleanData$education_yearMiGraduation)
+
+
+
+
+
 # EMPLOI ####
+#Description emloyeur
+table(Data$EMPLOYMENT_DESCR)
+CleanData$emploi_employedUlaval <- NA
+CleanData$emploi_employedUlaval[Data$EMPLOYMENT_DESCR == "Université Laval - Employé"] <- 1
+table(CleanData$emploi_employedUlaval)
+
+CleanData$emploi_retiredUlaval <- NA
+CleanData$emploi_retiredUlaval[Data$EMPLOYMENT_DESCR == "Université Laval - Retraité"] <- 1
+table(CleanData$emploi_retiredUlaval)
+
+##Dernier poste occupé à l'ULaval
+#professeur
+table(Data$TITLE_LONG)
+CleanData$emploi_teacherUlaval <- 0
+CleanData$emploi_teacherUlaval[which(grepl("^Professeur", Data$TITLE_LONG))] <- 1
+CleanData$emploi_teacherUlaval[which(grepl("^Médecin clinicien", Data$TITLE_LONG))] <- 1
+CleanData$emploi_teacherUlaval[which(grepl("^Enseignant", Data$TITLE_LONG))] <- 1
+CleanData$emploi_teacherUlaval[which(grepl("^Dentiste clinicien", Data$TITLE_LONG))] <- 1
+table(CleanData$emploi_teacherUlaval)
+
+#technicien
+CleanData$emploi_technicianUlaval <- 0
+CleanData$emploi_technicianUlaval[which(grepl("^Technicien", Data$TITLE_LONG))] <- 1
+CleanData$emploi_technicianUlaval[which(grepl("^Personnel technique", Data$TITLE_LONG))] <- 1
+table(CleanData$emploi_technicianUlaval)
+
+#professionnel
+CleanData$emploi_professionalUlaval <- 0
+CleanData$emploi_professionalUlaval[which(grepl("^Professionnel", Data$TITLE_LONG))] <- 1
+CleanData$emploi_professionalUlaval[which(grepl("^Personnel professionnel", Data$TITLE_LONG))] <- 1
+table(CleanData$emploi_professionalUlaval)
+
+#chargé de cours
+CleanData$emploi_lecturerUlaval <- 0
+CleanData$emploi_lecturerUlaval[which(grepl("^Chargé de cours", Data$TITLE_LONG))] <- 1
+CleanData$emploi_lecturerUlaval[which(grepl("^Chargée de cours", Data$TITLE_LONG))] <- 1
+CleanData$emploi_lecturerUlaval[which(grepl("^Chargé d'enseignement", Data$TITLE_LONG))] <- 1
+CleanData$emploi_lecturerUlaval[which(grepl("^Chargée d'enseignement", Data$TITLE_LONG))] <- 1
+CleanData$emploi_lecturerUlaval[which(grepl("^Chargé de sessions", Data$TITLE_LONG))] <- 1
+CleanData$emploi_lecturerUlaval[which(grepl("^Chargée de sessions", Data$TITLE_LONG))] <- 1
+CleanData$emploi_lecturerUlaval[which(grepl("^Chargé/e cours - forfaitaire", Data$TITLE_LONG))] <- 1
+
+table(CleanData$emploi_lecturerUlaval)
+
+#cadres
+CleanData$emploi_executiveUlaval <- 0
+CleanData$emploi_executiveUlaval[which(grepl("^Direct", Data$TITLE_LONG))] <- 1
+CleanData$emploi_executiveUlaval[which(grepl("^Chef", Data$TITLE_LONG))] <- 1
+CleanData$emploi_executiveUlaval[which(grepl("^Conseill", Data$TITLE_LONG))] <- 1
+CleanData$emploi_executiveUlaval[which(grepl("^Consultant", Data$TITLE_LONG))] <- 1
+CleanData$emploi_executiveUlaval[which(grepl("^Coordonnat", Data$TITLE_LONG))] <- 1
+CleanData$emploi_executiveUlaval[which(grepl("^Cadre", Data$TITLE_LONG))] <- 1
+CleanData$emploi_executiveUlaval[which(grepl("^Analyste", Data$TITLE_LONG))] <- 1
+Chargé de responsabilités administratives
+Administrat
+
+#Auxiliaire
+CleanData$emploi_assistantUlaval <- 0
+CleanData$emploi_assistantUlaval[which(grepl("^Auxiliaire d", Data$TITLE_LONG))] <- 1
+table(CleanData$emploi_assistantUlaval)
+
+#personnel administratif
+CleanData$emploi_adminStaffUlaval <- 0
+CleanData$emploi_adminStaffUlaval[which(grepl("^Auxiliaire administratif", Data$TITLE_LONG))] <- 1
+CleanData$emploi_adminStaffUlaval[which(grepl("^Préposée à l'impression", Data$TITLE_LONG))] <- 1
+CleanData$emploi_adminStaffUlaval[which(grepl("^Préposé à l'impression", Data$TITLE_LONG))] <- 1
+CleanData$emploi_adminStaffUlaval[which(grepl("^Personnel de bureau", Data$TITLE_LONG))] <- 1
+CleanData$emploi_adminStaffUlaval[which(grepl("^Commis", Data$TITLE_LONG))] <- 1
+CleanData$emploi_adminStaffUlaval[which(grepl("^Apparit", Data$TITLE_LONG))] <- 1
+CleanData$emploi_adminStaffUlaval[which(grepl("^Contractuel administratif", Data$TITLE_LONG))] <- 1
+
+#sport
+CleanData$emploi_sportUlaval <- 0
+CleanData$emploi_sportUlaval[which(grepl("^AC /", Data$TITLE_LONG))] <- 1
+CleanData$emploi_sportUlaval[which(grepl("^Surveillant-sauveteur", Data$TITLE_LONG))] <- 1
+
+Monit
+
+#personnel autre
+CleanData$emploi_otherStaffUlaval <- 0
+CleanData$emploi_otherStaffUlaval[which(grepl("^Préposée au prêt", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Préposé au prêt", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Préposé à l'entretien", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Préposée à l'entretien", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Préposé aux installations", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Préposée aux installations", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Personnel métiers", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Personnel de soutien", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Personne-ressource", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Magasin", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Jardin", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Format", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Installat", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Chargée de communication", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Chargé de communication", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Bibliothécaire", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Assistante-dentaire", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Assistant-dentaire", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Aide-technique", Data$TITLE_LONG))] <- 1
+CleanData$emploi_otherStaffUlaval[which(grepl("^Agent", Data$TITLE_LONG))] <- 1
+
+
+
+
+#Groupe d'emploi FUL
+table(Data$UL_GRP_EMPL_FUL)
+
+#Groupe d'emploi RH
+table(Data$UL_GR_EMPLOI_RH)
+
+#Date début expérience travail Ulaval
+table(Data$START_DT)[1:100]
+CleanData$emploi_startDateWorkUlaval <- NA
+CleanData$emploi_startDateWorkUlaval <- as.Date(Data$START_DT)
+table(CleanData$emploi_startDateWorkUlaval)
+
+#Date fin expérience de travail Ulaval
+table(Data$END_DT)[1:100]
+CleanData$emploi_endDateWorkUlaval <- NA
+CleanData$emploi_endDateWorkUlaval <- clean_raw_num(Data$END_DT)
+table(CleanData$emploi_endDateWorkUlaval)
+
+#Type d'emploi Ulaval
+table(Data$UL_TYPE_EMPLOI)[1:100]
+
 
 # CONTACT ####
 
@@ -147,6 +372,27 @@ CleanData$contact_lastCommunicationDate <- as.Date(Data$COMPLETED_DT)
 table(CleanData$contact_lastCommunicationDate)[1:50]
 hist(CleanData$contact_lastCommunicationDate,
      breaks = "year")
+
+#Inactivité totale contact
+table(Data$UL_SRVC_IND_CD_FUL) 
+CleanData$contact_totalInactivity <- 0
+CleanData$contact_totalInactivity[Data$UL_SRVC_IND_CD_FUL == "FUL"] <- 1
+table(CleanData$contact_totalInactivity) 
+
+
+#Ne pas solicité temporaire
+table(Data$UL_SRVC_IND_CD_PSO) 
+CleanData$contact_temporaryNoSolicit <- 0
+CleanData$contact_temporaryNoSolicit[Data$UL_SRVC_IND_CD_PSO == "PSO"] <- 1
+table(CleanData$contact_temporaryNoSolicit) 
+
+#Ne pas solicité permanent 
+table(Data$UL_SRVC_IND_CD_RAI) 
+CleanData$contact_permanentNoSolicit <- 0
+CleanData$contact_permanentNoSolicit[Data$UL_SRVC_IND_CD_RAI == "RAI"] <- 1
+table(CleanData$contact_permanentNoSolicit)
+
+#
 
 
 # HISTORIQUE ####
