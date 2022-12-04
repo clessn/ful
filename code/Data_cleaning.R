@@ -346,7 +346,6 @@ CleanData$emploi_otherStaffUlaval[which(grepl("^Aide-technique", Data$TITLE_LONG
 CleanData$emploi_otherStaffUlaval[which(grepl("^Agent", Data$TITLE_LONG))] <- 1
 CleanData$emploi_otherStaffUlaval[which(grepl("Stagiaire", Data$TITLE_LONG))] <- 1
 CleanData$emploi_otherStaffUlaval[which(grepl("^Accompagnat", Data$TITLE_LONG))] <- 1
-
 table(CleanData$emploi_otherStaffUlaval)
 
 
@@ -354,7 +353,6 @@ table(CleanData$emploi_otherStaffUlaval)
 CleanData$emploi_internshipSupervisorUlaval <- 0
 CleanData$emploi_internshipSupervisorUlaval[which(grepl("^Superviseur de stage", Data$TITLE_LONG))] <- 1
 CleanData$emploi_internshipSupervisorUlaval[which(grepl("^Superviseure de stage", Data$TITLE_LONG))] <- 1
-
 table(CleanData$emploi_internshipSupervisorUlaval)
 
 #recherche
@@ -362,7 +360,6 @@ CleanData$emploi_researchUlaval <- 0
 CleanData$emploi_researchUlaval[which(grepl("Stagiaire postdoctoral (recherche)", Data$TITLE_LONG))] <- 1
 CleanData$emploi_researchUlaval[which(grepl("^Développeu", Data$TITLE_LONG))] <- 1
 CleanData$emploi_researchUlaval[which(grepl("^Analyste", Data$TITLE_LONG))] <- 1
-
 table(CleanData$emploi_researchUlaval)
 
 
@@ -376,13 +373,15 @@ table(Data$UL_GR_EMPLOI_RH)
 table(Data$START_DT)[1:100]
 CleanData$emploi_startDateWorkUlaval <- NA
 CleanData$emploi_startDateWorkUlaval <- as.Date(Data$START_DT)
-table(CleanData$emploi_startDateWorkUlaval)
+hist(CleanData$emploi_startDateWorkUlaval,
+     breaks = "year")
 
 #Date fin expérience de travail Ulaval
-table(Data$END_DT)[1:100]
-CleanData$emploi_endDateWorkUlaval <- NA
-CleanData$emploi_endDateWorkUlaval <- clean_raw_num(Data$END_DT)
-table(CleanData$emploi_endDateWorkUlaval)
+#table(Data$END_DT)[1:10]
+#CleanData$emploi_endDateWorkUlaval <- NA
+#CleanData$emploi_endDateWorkUlaval <- as.Date(Data$END_DT)
+#hist(CleanData$emploi_endDateWorkUlaval,
+#     breaks = "month")
 
 #Type d'emploi Ulaval
 table(Data$UL_TYPE_EMPLOI)[1:100]
@@ -393,9 +392,9 @@ table(Data$UL_TYPE_EMPLOI)[1:100]
 # Nombre de refus pour les communications (SOLMAS, SOLCNV, SUISOL et SOLPER)
 unique(Data$UL_NBR_REFUS)[1:10]
 table(Data$UL_NBR_REFUS)
-CleanData$contact_declineCommunications_number <- minmaxNormalization(clean_raw_num(Data$UL_NBR_REFUS))
+CleanData$contact_declineCommunications_number <- clean_raw_num(Data$UL_NBR_REFUS)
+hist(CleanData$contact_declineCommunications_number)
 table(CleanData$contact_declineCommunications_number)
-
 
 # Date de la dernière communication
 Data$COMPLETED_DT[1:15] 
@@ -445,6 +444,15 @@ unique(Data$UL_ENC_AN_PASSE)[1:10]
 table(Data$UL_ENC_AN_PASSE)[1:100]
 CleanData$historic_CollectedLastYear_totalAmount <- clean_raw_num(Data$UL_ENC_AN_PASSE)
 table(CleanData$historic_CollectedLastYear_totalAmount)[1:50]
+hist(CleanData$historic_CollectedLastYear_totalAmount)
+
+# Montant du dernier don
+unique(Data$UL_AMT_DER_DON_1)[1:10]
+table(Data$UL_AMT_DER_DON_1)[1:100]
+CleanData$historic_lastDonation_amount <- clean_raw_num(Data$UL_AMT_DER_DON_1)
+table(CleanData$historic_lastDonation_amount)[1:50]
+hist(CleanData$historic_lastDonation_amount)
+
 
 # Niveau cercle donateur FUL
 ## https://www.ulaval.ca/fondation/decouvrir/reconnaissance/paliers-de-dons/
@@ -951,5 +959,4 @@ CleanData$prospectif_plannedDonation[Data$UL_DON_PLANIF=="OUI"] <- 1
 table(CleanData$prospectif_plannedDonation)
 sum(is.na(CleanData$prospectif_plannedDonation))
 
-
-
+saveRDS(CleanData, "_SharedFolder_fondation-ulaval/Data/CleanData.rds")

@@ -1,0 +1,58 @@
+---
+title: "Analyse des donations à la FUL"
+subtitle: "Premières analyses"
+author: |
+  | Alexandre Bouillon$\dagger$, Jérémy Gilbert$\dagger$, 
+  | Hubert Cadieux$\dagger$, Yannick Dufresne$\dagger$
+  |
+  | \scriptsize $\dagger$ Université Laval, Pavillon Charles-De-Koninck, 1030 Avenue des Sciences Humaines, local 2453-A, Québec, QC G1V 0A6. 
+
+fontsize: 12pt
+mainfont: Helvetica Neue
+date: "6 décembre 2022"
+output: 
+  beamer_presentation:
+    template: Theme_Pres_WPSA21.tex
+header-includes:
+  - \usepackage{lmodern}
+  - \usepackage{multicol}
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+# Structure de la présentation
+
+1. Mise en contexte
+2. Analyses descriptives
+3. Analyses par régressions
+4. Prochaines étapes
+
+
+# 1. Mise en contexte
+
+- Objectifs
+- Domestication des données
+  - Obstacles "physiques"
+- Exploration
+
+# 2. Analyses descriptives
+## 2.1 
+
+```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
+#getwd()
+knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2.1_gender.png")
+``` 
+
+
+# 2. Analyses descriptives
+## 2.2 
+
+graphique 2
+
+# 3. Analyses par régressions
+
+# 4. Prochaines étapes
