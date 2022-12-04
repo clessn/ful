@@ -91,8 +91,8 @@ Data <- dbGetQuery(mydb, "SELECT
                           UL_RSLT_D_A_SOL,
                           UL_NBR_REFUS,
                           COMPLETED_DT
-                            FROM data_all
-                            ORDER BY RANDOM() LIMIT 50000")
+                            FROM data_all")
+#                            ORDER BY RANDOM() LIMIT 50000")
 
 dbDisconnect(mydb)
 
@@ -139,21 +139,24 @@ table(CleanData$ses_female)
 #CleanData$ses_dead[Data$DT_OF_DEATH == ] <- 1
 
 #Age
-table(Data$AGE)[1:15]
-CleanData$ses_age34m <- NA
-CleanData$ses_age34m[Data$AGE >= 18 & Data$AGE < 35] <- 1
+CleanData$ses_age <- clean_raw_num(Data$AGE)
+hist(CleanData$ses_age)
+
+table(Data$AGE)[1:45]
+CleanData$ses_age34m <- 0
+CleanData$ses_age34m[CleanData$ses_age >= 18 & CleanData$ses_age < 35] <- 1
 table(CleanData$ses_age34m)
 
-CleanData$ses_age35_54 <- NA
-CleanData$ses_age35_54[Data$AGE >= 35 & Data$AGE < 55] <- 1
+CleanData$ses_age35_54 <- 0
+CleanData$ses_age35_54[CleanData$ses_age >= 35 & CleanData$ses_age < 55] <- 1
 table(CleanData$ses_age35_54)
 
-CleanData$ses_age55p <- NA
-CleanData$ses_age55p[Data$AGE >= 55] <- 1
+CleanData$ses_age55p <- 0
+CleanData$ses_age55p[CleanData$ses_age >= 55] <- 1
 table(CleanData$ses_age55p)
 
 #langue
-table(Data$LANG_CD)[1:100]
+table(Data$LANG_CD)[1:10]
 
 #Ville de domicile
 #table(Data$UL_ADR_P_H_CITY)[1:100]
@@ -163,11 +166,11 @@ table(Data$LANG_CD)[1:100]
 
 #État/province
 table(Data$UL_ADR_P_H_STATE)[1:100]
-CleanData$ses_origin_qc <- NA
+CleanData$ses_origin_qc <- 0
 CleanData$ses_origin_qc[Data$UL_ADR_P_H_STATE == "QC"] <- 1
 table(CleanData$ses_origin_qc)
 
-CleanData$ses_origin_roc <- NA #autres provinces 
+CleanData$ses_origin_roc <- 0 #autres provinces 
 CleanData$ses_origin_roc[Data$UL_ADR_P_H_STATE == "AB"] <- 1
 CleanData$ses_origin_roc[Data$UL_ADR_P_H_STATE == "MB"] <- 1
 CleanData$ses_origin_roc[Data$UL_ADR_P_H_STATE == "ON"] <- 1
@@ -183,17 +186,16 @@ CleanData$ses_origin_roc[Data$UL_ADR_P_H_STATE == "YT"] <- 1
 table(CleanData$ses_origin_roc)
 
 table(Data$UL_ADR_P_H_PAYS)
-CleanData$ses_origin_other <- NA
+CleanData$ses_origin_other <- 0
 CleanData$ses_origin_other[Data$UL_ADR_P_H_PAYS != "Canada"] <- 1 #tous les autres pays
-
 table(CleanData$ses_origin_other)
 
 #code postal
-table(Data$UL_ADR_P_H_CP)
+table(Data$UL_ADR_P_H_CP)[1:100]
 CleanData$ses_postalcode <- NA
 CleanData$ses_postalcode <- gsub(" ", "", Data$UL_ADR_P_H_CP)
 CleanData$ses_postalcode <- tolower(CleanData$ses_postalcode)
-table(CleanData$ses_postalcode)
+table(CleanData$ses_postalcode)[1:100]
 
 
 
@@ -209,7 +211,8 @@ table(Data$UL_MAJOR1_CD_01)
 table(Data$UL_AV_CLASS_YR_01)
 CleanData$education_yearFirstGraduation <- NA
 CleanData$education_yearFirstGraduation <- clean_raw_num(Data$UL_AV_CLASS_YR_01)
-table(CleanData$education_yearFirstGraduation)
+CleanData$education_yearFirstGraduation[CleanData$education_yearFirstGraduation == 0] <- NA
+hist(CleanData$education_yearFirstGraduation)
 
 #Niveau d'étude du diplome le plus important
 table(Data$UL_EDUCATIO_LVL_PI)
@@ -219,9 +222,10 @@ table(Data$UL_ACAD_ORG_PI)
 
 #Année de promotion du diplome le plus important
 table(Data$UL_AV_CLASS_YR_PI)
-CleanData$education_yearMiGraduation <- NA
-CleanData$education_yearMiGraduation <- clean_raw_num(Data$UL_AV_CLASS_YR_PI)
-table(CleanData$education_yearMiGraduation)
+CleanData$education_yearMIGraduation <- NA
+CleanData$education_yearMIGraduation <- clean_raw_num(Data$UL_AV_CLASS_YR_PI)
+CleanData$education_yearMIGraduation[CleanData$education_yearMIGraduation == 0] <- NA
+hist(CleanData$education_yearMIGraduation)
 
 #établissement
 table(Data$INSTITUTION)
@@ -232,12 +236,12 @@ table(CleanData$education_ulaval)
 
 # EMPLOI ####
 #Description emloyeur
-table(Data$EMPLOYMENT_DESCR)
-CleanData$emploi_employedUlaval <- NA
-CleanData$emploi_employedUlaval[Data$EMPLOYMENT_DESCR == "Université Laval - Employé"] <- 1
-table(CleanData$emploi_employedUlaval)
+#table(Data$EMPLOYMENT_DESCR)[1:5]
+#CleanData$emploi_employedUlaval <- NA
+#CleanData$emploi_employedUlaval[Data$EMPLOYMENT_DESCR == "Université Laval - Employé"] <- 1
+#table(CleanData$emploi_employedUlaval)
 
-CleanData$emploi_retiredUlaval <- NA
+CleanData$emploi_retiredUlaval <- 0
 CleanData$emploi_retiredUlaval[Data$EMPLOYMENT_DESCR == "Université Laval - Retraité"] <- 1
 table(CleanData$emploi_retiredUlaval)
 
@@ -272,7 +276,6 @@ CleanData$emploi_lecturerUlaval[which(grepl("^Chargée d'enseignement", Data$TIT
 CleanData$emploi_lecturerUlaval[which(grepl("^Chargé de sessions", Data$TITLE_LONG))] <- 1
 CleanData$emploi_lecturerUlaval[which(grepl("^Chargée de sessions", Data$TITLE_LONG))] <- 1
 CleanData$emploi_lecturerUlaval[which(grepl("^Chargé/e cours - forfaitaire", Data$TITLE_LONG))] <- 1
-
 table(CleanData$emploi_lecturerUlaval)
 
 #cadres
@@ -294,7 +297,6 @@ CleanData$emploi_executiveUlaval[which(grepl("^Rect", Data$TITLE_LONG))] <- 1
 CleanData$emploi_executiveUlaval[which(grepl("^Responsable", Data$TITLE_LONG))] <- 1
 CleanData$emploi_executiveUlaval[which(grepl("^Secrétaire générale", Data$TITLE_LONG))] <- 1
 CleanData$emploi_executiveUlaval[which(grepl("^Secrétaire de gestion ", Data$TITLE_LONG))] <- 1
-
 table(CleanData$emploi_executiveUlaval)
 
 #Auxiliaire
@@ -311,7 +313,6 @@ CleanData$emploi_adminStaffUlaval[which(grepl("^Personnel de bureau", Data$TITLE
 CleanData$emploi_adminStaffUlaval[which(grepl("^Commis", Data$TITLE_LONG))] <- 1
 CleanData$emploi_adminStaffUlaval[which(grepl("^Apparit", Data$TITLE_LONG))] <- 1
 CleanData$emploi_adminStaffUlaval[which(grepl("^Contractuel administratif", Data$TITLE_LONG))] <- 1
-
 table(CleanData$emploi_adminStaffUlaval)
 
 #sport
@@ -319,7 +320,6 @@ CleanData$emploi_sportUlaval <- 0
 CleanData$emploi_sportUlaval[which(grepl("^AC /", Data$TITLE_LONG))] <- 1
 CleanData$emploi_sportUlaval[which(grepl("^Surveillant-sauveteur", Data$TITLE_LONG))] <- 1
 CleanData$emploi_sportUlaval[which(grepl("^Monit", Data$TITLE_LONG))] <- 1
-
 table(CleanData$emploi_sportUlaval)
 
 #personnel autre
