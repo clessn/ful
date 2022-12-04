@@ -1,58 +1,55 @@
 ---
 title: "Variables nécessitant des précisions"
 author: "CLESSN"
-date: "2022-11-24"
+date: "2022-11-30"
 output: pdf_document
 ---
 # Liste des codes à lettres/chiffres et leur signification 
 
-*** UL_ACAD_ORG_01
+UL_ACAD_ORG_01
 
-- Codes de faculté à 3 lettres
-
-
-*** UL_MAJOR1_CD_01
-
-- Codes de programme
+- Il faudrait pouvoir associer les codes de faculté à 3 lettres aux noms complets des facultés.
 
 
-***UL_EDUCATIO_LVL_PI
+UL_MAJOR1_CD_01
 
-- Codes du niveau d’étude le plus important (de 51 à 59)
-
-
-*** UL_GRP_EMPL_FUL et UL_GR_EMPLOI_RH
-
-- Codes d’emploi (FUL et RH) à 4 chiffres
+- Il faudrait pouvoir associer les codes de programme aux noms complets des programmes.
 
 
-*** UL_TYPE_EMPLOI
-- Codes types d’emplois UL (N et R)
+UL_EDUCATIO_LVL_PI
+
+- Nous avons besoin d'explications sur les codes du niveau d’étude le plus important (de 51 à 59). 
 
 
-*** UL_TYP_COL_FUL_CD
-- Codes des types de collaborateur FUL (1 2 3 5 50 51 6 7 9)
+UL_GRP_EMPL_FUL et UL_GR_EMPLOI_RH
+
+- Nous avons besoin d'explications sur les codes d’emploi FUL et RH (à 4 chiffres).
 
 
+UL_TYPE_EMPLOI
+
+- Nous avons besoin d'explications sur les codes "types d’emplois UL" (N et R).
 
 
-# Expliquer les termes
+UL_TYP_COL_FUL_CD
+
+- Nous avons besoin d'explications sur les codes des types de collaborateur FUL (1 2 3 5 50 51 6 7 9)
+
+
+UL_RSLT_D_A_SOL
+
+- Besoin de savoir la signification des valeurs de la variable
+
+
+# Définitions
+Nous avons besoin des définitions des termes et expressions suivantes:
 
 - Promesses ouvertes
     - Montant attendu
     - Promesse illimitée
     
-- Paliers de donateurs
-
-*** UL_SRVC_IND_NEG
-
 - Indicateur de service négatif
 
-*** UL_RSLT_D_A_SOL
 
-Besoin de savoir la signification des valeurs de la variable
-
-
-- Signification de “Résultat de la dernière action de sollicitation”
 
 
