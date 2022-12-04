@@ -37,16 +37,37 @@ knitr::opts_chunk$set(echo = FALSE)
 - Objectifs
 - Domestication des données
   - Obstacles "physiques"
+  - Variables dont on ne connait pas la signification
 - Exploration
 
+---
+
 # 2. Analyses descriptives
-## 2.1 
+
+## 2.1 Relation entre le genre et le fait de donner
 
 ```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
 #getwd()
 knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2.1_gender.png")
-``` 
+```
 
+---
+# 2. Analyses descriptives
+## 2.1 Relation entre le genre et le fait de donner
+::: columns
+:::: column
+```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
+#getwd()
+knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2.1_gender.png")
+```
+::::
+:::: column
+## Constats
+- Il y a une plus grande représentation des femmes dans le jeu de données
+- Mais les hommes sont plus nombreux à donner
+::::
+:::
+---
 
 # 2. Analyses descriptives
 ## 2.2 
@@ -56,3 +77,4 @@ graphique 2
 # 3. Analyses par régressions
 
 # 4. Prochaines étapes
+- rg
