@@ -40,10 +40,8 @@ knitr::opts_chunk$set(echo = FALSE)
   - Variables dont on ne connait pas la signification
 - Exploration
 
----
 
 # 2. Analyses descriptives
-
 ## 2.1 Relation entre le genre et le fait de donner
 
 ```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
@@ -51,7 +49,6 @@ knitr::opts_chunk$set(echo = FALSE)
 knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2.1_gender.png")
 ```
 
----
 # 2. Analyses descriptives
 ## 2.1 Relation entre le genre et le fait de donner
 ::: columns
@@ -61,20 +58,60 @@ knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2
 knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2.1_gender.png")
 ```
 ::::
+
 :::: column
 ## Constats
 - Il y a une plus grande représentation des femmes dans le jeu de données
 - Mais les hommes sont plus nombreux à donner
 ::::
 :::
----
 
 # 2. Analyses descriptives
-## 2.2 
+## 2.2 Relation entre la promotion du premier diplôme et la date premier don
 
-graphique 2
+Distribution de la promotion du premier diplôme dans le temps
+```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
+#getwd()
+knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2.2.1.distributionDiploma.png")
+```
+
+
+# 2. Analyses descriptives
+## 2.2 Relation entre la promotion du premier diplôme et la date du premier don
+
+
+```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
+knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2.2.2.diplomaFirstDon.png")
+```
+
+
+# 2. Analyses descriptives
+## 2.2 Relation entre la promotion du premier diplôme et la date du premier don
+::: columns
+:::: column
+```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
+#getwd()
+knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2.2.2.diplomaFirstDon.png")
+```
+::::
+
+:::: column
+## Constats
+- 34% des premiers dons surviennent moins de 5 ans après le premier diplôme
+- 54% des premiers dons surviennent moins de 10 ans après le premier diplôme
+::::
+:::
+
+
 
 # 3. Analyses par régressions
 
 # 4. Prochaines étapes
-- rg
+- Vos idées?
+- Explorer ce qui peut expliquer et prédire les composantes suivantes:
+  - Probabilité de donner
+  - Envergure des montant attendus (s'il y a donation)
+  - Délai prévu entre diplôme/retraite et début des donations
+  - Constance des donations
+
+
