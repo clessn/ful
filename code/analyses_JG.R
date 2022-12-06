@@ -46,9 +46,10 @@ ggplot(GraphData, aes(x = ses_female, y = prop)) +
         text = element_text(lineheight = 0.3),
         axis.ticks.x = element_blank(),
         axis.line.x = element_blank(),
-        axis.title.y = element_text(size = 40),
-        axis.text.x = element_text(size = 30),
-        axis.text.y = element_text(size = 30))
+        axis.title.y = element_text(size = 60),
+        axis.text.x = element_text(size = 50),
+        axis.text.y = element_text(size = 50),
+        strip.text.x = element_text(size = 50))
 
 
 ggsave("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2.1_gender.png",

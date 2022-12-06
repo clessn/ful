@@ -27,8 +27,8 @@ knitr::opts_chunk$set(echo = FALSE)
 # Structure de la présentation
 
 1. Mise en contexte
-2. Analyses descriptives
-3. Analyses par régressions
+2. Analyses par régressions
+3. Analyses descriptives
 4. Prochaines étapes
 
 
@@ -40,17 +40,26 @@ knitr::opts_chunk$set(echo = FALSE)
   - Variables dont on ne connait pas la signification
 - Exploration
 
+# 2. Analyses par régressions
 
-# 2. Analyses descriptives
-## 2.1 Relation entre le genre et le fait de donner
+## 2.1 Probabilité de donner selon l'année de promotion du premier diplôme
+
+```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
+#getwd()
+knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/3.probs_year_degree.png")
+```
+
+
+# 3. Analyses descriptives
+## 3.1 Relation entre le genre et le fait de donner
 
 ```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
 #getwd()
 knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2.1_gender.png")
 ```
 
-# 2. Analyses descriptives
-## 2.1 Relation entre le genre et le fait de donner
+# 3. Analyses descriptives
+## 3.1 Relation entre le genre et le fait de donner
 ::: columns
 :::: column
 ```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
@@ -66,18 +75,17 @@ knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2
 ::::
 :::
 
-# 2. Analyses descriptives
-## 2.2 Relation entre la promotion du premier diplôme et la date premier don
+# 3. Analyses descriptives
+## 3.2 Distribution de la promotion du premier diplôme dans le temps
 
-Distribution de la promotion du premier diplôme dans le temps
 ```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
 #getwd()
 knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2.2.1.distributionDiploma.png")
 ```
 
 
-# 2. Analyses descriptives
-## 2.2 Relation entre la promotion du premier diplôme et la date du premier don
+# 3. Analyses descriptives
+## 3.3 Relation entre la promotion du premier diplôme et la date du premier don
 
 
 ```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
@@ -85,8 +93,8 @@ knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2
 ```
 
 
-# 2. Analyses descriptives
-## 2.2 Relation entre la promotion du premier diplôme et la date du premier don
+# 3. Analyses descriptives
+## 3.3 Relation entre la promotion du premier diplôme et la date du premier don
 ::: columns
 :::: column
 ```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
@@ -104,14 +112,10 @@ knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2
 
 
 
-# 3. Analyses par régressions
-
 # 4. Prochaines étapes
-- Vos idées?
 - Explorer ce qui peut expliquer et prédire les composantes suivantes:
   - Probabilité de donner
   - Envergure des montant attendus (s'il y a donation)
   - Délai prévu entre diplôme/retraite et début des donations
   - Constance des donations
-
-
+- Vos idées?
