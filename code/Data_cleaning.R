@@ -203,9 +203,32 @@ table(CleanData$ses_postalcode)[1:100]
 
 #Faculté du premier diplome
 table(Data$UL_ACAD_ORG_01)
+CleanData$education_FirstDegree_Medecine <- 0
+CleanData$education_FirstDegree_Medecine[Data$UL_ACAD_ORG_01 == "MED"] <- 1
+table(CleanData$education_FirstDegree_Medecine)
+
+CleanData$education_FirstDegree_Admin <- 0
+CleanData$education_FirstDegree_Admin[Data$UL_ACAD_ORG_01 == "ADM"] <- 1
+table(CleanData$education_FirstDegree_Admin)
+
+CleanData$education_FirstDegree_Music <- 0
+CleanData$education_FirstDegree_Music[Data$UL_ACAD_ORG_01 == "MUS"] <- 1
+table(CleanData$education_FirstDegree_Music)
+
+CleanData$education_FirstDegree_AgroNutri <- 0
+CleanData$education_FirstDegree_AgroNutri[Data$UL_ACAD_ORG_01 == "AGA"] <- 1
+table(CleanData$education_FirstDegree_AgroNutri)
+
+CleanData$education_FirstDegree_Pharm <- 0
+CleanData$education_FirstDegree_Pharm[Data$UL_ACAD_ORG_01 == "PHA"] <- 1
+table(CleanData$education_FirstDegree_Pharm)
+
 
 #Programme du premier diplome
 table(Data$UL_MAJOR1_CD_01)
+
+
+
 
 #Année de promotion du premier diplome
 table(Data$UL_AV_CLASS_YR_01)
