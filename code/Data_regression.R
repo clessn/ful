@@ -119,9 +119,17 @@ DataDegrees <- Data %>%
            education_FirstDegree_AgroNutri == 1 |
            education_FirstDegree_Pharm == 1)
 
+table(DataDegrees$education_FirstDegree_Admin)
+table(DataDegrees$education_FirstDegree_Music)
+table(DataDegrees$education_FirstDegree_Medecine)
+table(DataDegrees$education_FirstDegree_AgroNutri)
+table(DataDegrees$education_FirstDegree_Pharm)
+
 model <- glm(donated ~ ses_female + education_yearFirstGraduation +
                ses_origin_qc + ses_origin_roc + education_FirstDegree_Medecine +
-               education_FirstDegree_Admin + education_FirstDegree_Pharm + education_FirstDegree_AgroNutri,
+               education_FirstDegree_Music + education_FirstDegree_Pharm +
+               education_FirstDegree_AgroNutri,
+             family = binomial(),
              data = DataDegrees)
 summary(model)
 
@@ -129,126 +137,73 @@ summary(model)
 odds <- exp(model$coefficients) 
 probability <- odds / (1 + odds)
 
-medecins <- data.frame(ses_female = rnorm(48,
-                                          mean = mean(Data$ses_female, na.rm = T),
-                                          sd = sd(Data$ses_female, na.rm = T)),
-                       education_yearFirstGraduation = 1975:2022,
-                       ses_origin_qc = rnorm(48,
-                                             mean = mean(Data$ses_origin_qc, na.rm = T),
-                                             sd = sd(Data$ses_origin_qc, na.rm = T)),
-                       ses_origin_roc = rnorm(48,
-                                              mean = mean(Data$ses_origin_roc, na.rm = T),
-                                              sd = sd(Data$ses_origin_roc, na.rm = T)),
-                      education_FirstDegree_Medecine = 1,
-                      education_FirstDegree_Admin =  0,
-                      education_FirstDegree_AgroNutri = 0,
-                      education_FirstDegree_Pharm = 0)
-predictPr <- predict(model, medecins, type="response")
-names(predictPr) <- 1975:2022
-predictPr[predictPr < 0] <- 0
-prMedecins <- predictPr
-prMedecins
-
-admin <- data.frame(ses_female = rnorm(48,
-                                       mean = mean(Data$ses_female, na.rm = T),
-                                       sd = sd(Data$ses_female, na.rm = T)),
-                       education_yearFirstGraduation = 1975:2022,
-                       ses_origin_qc = rnorm(48,
-                                             mean = mean(Data$ses_origin_qc, na.rm = T),
-                                             sd = sd(Data$ses_origin_qc, na.rm = T)),
-                       ses_origin_roc = rnorm(48,
-                                              mean = mean(Data$ses_origin_roc, na.rm = T),
-                                              sd = sd(Data$ses_origin_roc, na.rm = T)),
-                       education_FirstDegree_Medecine = 0,
-                       education_FirstDegree_Admin =  1,
-                       education_FirstDegree_AgroNutri = 0,
-                       education_FirstDegree_Pharm = 0)
-predictPr <- predict(model, admin, type="response")
-names(predictPr) <- 1975:2022
-predictPr[predictPr < 0] <- 0
-prAdmin <- predictPr
-prAdmin
+subset <- DataDegrees[1:5,]
 
 
-pharm <- data.frame(ses_female = rnorm(48,
-                                       mean = mean(Data$ses_female, na.rm = T),
-                                       sd = sd(Data$ses_female, na.rm = T)),
-                    education_yearFirstGraduation = 1975:2022,
-                    ses_origin_qc = rnorm(48,
-                                          mean = mean(Data$ses_origin_qc, na.rm = T),
-                                          sd = sd(Data$ses_origin_qc, na.rm = T)),
-                    ses_origin_roc = rnorm(48,
-                                           mean = mean(Data$ses_origin_roc, na.rm = T),
-                                           sd = sd(Data$ses_origin_roc, na.rm = T)),
-                    education_FirstDegree_Medecine = 0,
-                    education_FirstDegree_Admin =  0,
-                    education_FirstDegree_AgroNutri = 0,
-                    education_FirstDegree_Pharm = 1)
-predictPr <- predict(model, pharm, type="response")
-names(predictPr) <- 1975:2022
-predictPr[predictPr < 0] <- 0
-prPharm <- predictPr
-prPharm
+fake <- expand.grid(c(0,1), c(0,1), c(0,1), 1975:2022) %>% 
+  filter(!(Var2==1&Var3==1))
+
+names(fake) <- c('ses_female', 'ses_origin_qc', 'ses_origin_roc',
+                 'education_yearFirstGraduation')
+
+fake$education_FirstDegree_Medecine <- 0
+fake$education_FirstDegree_Music <- 0
+fake$education_FirstDegree_AgroNutri <- 0
+fake$education_FirstDegree_Pharm <- 0
+
+medecins <- fake %>% mutate(education_FirstDegree_Medecine = 1)
+music <- fake %>% mutate(education_FirstDegree_Music = 1)
+agro <- fake %>% mutate(education_FirstDegree_AgroNutri = 1)
+pharm <- fake %>% mutate(education_FirstDegree_Pharm = 1)
+
+All <- rbind(fake, medecins, music, agro, pharm) %>% 
+  mutate(pred = predict(object = model, newdata = ., type = "response")*100,
+         degree = ifelse(education_FirstDegree_Medecine == 1, "Médecine", "Administration"),
+         degree = ifelse(education_FirstDegree_Music == 1, "Musique", degree),
+         degree = ifelse(education_FirstDegree_AgroNutri == 1, "Agronomie", degree),
+         degree = ifelse(education_FirstDegree_Pharm == 1, "Pharmacie", degree),
+         )
 
 
-agro <- data.frame(ses_female = rnorm(48,
-                                      mean = mean(Data$ses_female, na.rm = T),
-                                      sd = sd(Data$ses_female, na.rm = T)),
-                   education_yearFirstGraduation = 1975:2022,
-                   ses_origin_qc = rnorm(48,
-                                         mean = mean(Data$ses_origin_qc, na.rm = T),
-                                         sd = sd(Data$ses_origin_qc, na.rm = T)),
-                   ses_origin_roc = rnorm(48,
-                                          mean = mean(Data$ses_origin_roc, na.rm = T),
-                                          sd = sd(Data$ses_origin_roc, na.rm = T)),
-                    education_FirstDegree_Medecine = 0,
-                    education_FirstDegree_Admin =  0,
-                    education_FirstDegree_AgroNutri = 1,
-                    education_FirstDegree_Pharm = 0)
-predictPr <- predict(model, agro, type="response")
-names(predictPr) <- 1975:2022
-predictPr[predictPr < 0] <- 0
-prAgro <- predictPr
-prAgro
-
-
-
-Graph <- data.frame(firstDegree = c(rep("Médecins", 48),
-                                    rep("Administration", 48),
-                                    rep("Pharmacie", 48),
-                                    rep("Agriculture", 48)),
-                    year = as.numeric(c(names(prMedecins),
-                                        names(prAdmin),
-                                        names(prPharm),
-                                        names(prAgro))),
-                    probs = c(prMedecins, prAdmin,
-                              prPharm, prAgro)*100)
-
-ggplot(Graph, aes(x = year, y = probs,
-                  group = firstDegree,
-                  color = firstDegree)) +
-  #geom_point(alpha = 0.2, shape = 21) +
+ggplot(All, aes(x = education_yearFirstGraduation, y = pred, group = degree, color = degree)) +
+  #geom_point(alpha = 0.2, shape = 2) +
   #geom_line(alpha = 0.2) +
-  geom_smooth(se = F, span = 0.5,
-              linewidth = 3) +
+  geom_smooth(se = F , span = 0.5,
+              linewidth = 2.5) +
   xlab("") +
   ylab("\nProbabilité de donner (%)\n") +
-  clessnverse::theme_clean_light(base_size = 50) +
-  scale_x_continuous(breaks = seq(1975, 2020, by = 5)) +
-  scale_color_manual(values = c("Médecins" = "#e30513",
-                                "Pharmacie" = "#ffc103",
-                                "Agriculture" = "#7f7f7f",
-                                "Administration" = "#000000")) +
-  theme(axis.ticks.x = element_blank(),
-        text = element_text(lineheight = 0.2),
-        legend.position = "right",
+  clessnverse::theme_clean_light(base_size = 12) +
+  scale_y_continuous(limits = c(0,75)) +
+  scale_x_continuous(breaks = seq(1975, 2020, by = 10)) +
+  scale_color_manual(values = c("Médecine" = "#e30513",
+                                "Musique" = "#ffc103",
+                                "Agronomie" = "#7f7f7f",
+                                "Pharmacie" = "#000000",
+                                "Administration" = "blue" )) +
+  theme(legend.position = "right",
         axis.line.x = element_blank(),
-        legend.text = element_text(size = 50),
+        legend.text = element_text(size = 25),
         axis.title.x = element_text(size = 60),
-        axis.title.y = element_text(size = 60),
-        axis.text.y = element_text(size = 50))
+        axis.text.x = element_text(size = 20),
+        axis.title.y = element_text(size = 30, hjust = 0.5),
+        axis.text.y = element_text(size = 30))
 
 ggsave("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/3.probs_year_degree.png",
-       width = 9, height = 5.5)
+       width = 12, height = 10)
+
 
 # Based on number of decline of communication
+
+
+###Exploration 
+
+modeltest <- glm(prospectif_plannedDonation  ~ ses_age + education_FirstDegree_Medecine +
+                   education_FirstDegree_Music + education_FirstDegree_Pharm +
+                   education_FirstDegree_AgroNutri,
+                 family = binomial(),
+                 data = DataD)
+
+summary(modeltest)
+
+hist(Data$prospectif_openPledges_totalAmount)
+

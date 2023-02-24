@@ -1,15 +1,10 @@
 ---
 title: "Analyse des donations à la FUL"
 subtitle: "Premières analyses"
-author: |
-  | Alexandre Bouillon$\dagger$, Jérémy Gilbert$\dagger$, 
-  | Hubert Cadieux$\dagger$, Yannick Dufresne$\dagger$
-  |
-  | \scriptsize $\dagger$ Université Laval, Pavillon Charles-De-Koninck, 1030 Avenue des Sciences Humaines, local 2453-A, Québec, QC G1V 0A6. 
 
 fontsize: 12pt
 mainfont: Helvetica Neue
-date: "6 décembre 2022"
+date: "24 janvier 2023"
 output: 
   beamer_presentation:
     template: Theme_Pres_WPSA21.tex
@@ -38,28 +33,19 @@ knitr::opts_chunk$set(echo = FALSE)
 - Domestication des données
   - Obstacles "physiques"
   - Variables dont on ne connait pas la signification
-- Exploration
-
-# 2. Analyses par régressions
-
-## 2.1 Probabilité de donner selon l'année de promotion du premier diplôme
-
-```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
-#getwd()
-knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/3.probs_year_degree.png")
-```
+- Explorations corrélationnelles
 
 
-# 3. Analyses descriptives
-## 3.1 Relation entre le genre et le fait de donner
+# 2. Analyses descriptives
+## 2.1 Relation entre le genre et le fait de donner
 
 ```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
 #getwd()
 knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2.1_gender.png")
 ```
 
-# 3. Analyses descriptives
-## 3.1 Relation entre le genre et le fait de donner
+# 2. Analyses descriptives
+## 2.1 Relation entre le genre et le fait de donner
 ::: columns
 :::: column
 ```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
@@ -75,8 +61,8 @@ knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2
 ::::
 :::
 
-# 3. Analyses descriptives
-## 3.2 Distribution de la promotion du premier diplôme dans le temps
+# 2. Analyses descriptives
+## 2.2 Distribution de la promotion du premier diplôme dans le temps
 
 ```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
 #getwd()
@@ -84,8 +70,8 @@ knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2
 ```
 
 
-# 3. Analyses descriptives
-## 3.3 Relation entre la promotion du premier diplôme et la date du premier don
+# 2. Analyses descriptives
+## 2.3 Relation entre la promotion du premier diplôme et la date du premier don
 
 
 ```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
@@ -93,8 +79,8 @@ knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2
 ```
 
 
-# 3. Analyses descriptives
-## 3.3 Relation entre la promotion du premier diplôme et la date du premier don
+# 2. Analyses descriptives
+## 2.3 Relation entre la promotion du premier diplôme et la date du premier don
 ::: columns
 :::: column
 ```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
@@ -110,12 +96,21 @@ knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/2
 ::::
 :::
 
+# 3. Analyses par régressions
+
+## 3.1 Probabilité de donner selon l'année de promotion du premier diplôme
+
+```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
+#getwd()
+knitr::include_graphics("_SharedFolder_fondation-ulaval/pres_2022-12-06/graphs/3.probs_year_degree.png")
+```
 
 
 # 4. Prochaines étapes
+- Intégrer les autres codes de programme
 - Explorer ce qui peut expliquer et prédire les composantes suivantes:
   - Probabilité de donner
   - Envergure des montant attendus (s'il y a donation)
   - Délai prévu entre diplôme/retraite et début des donations
   - Constance des donations
-- Vos idées?
+- Modèle "made in Québec", intéractions, hétérogénéité, etc
