@@ -30,21 +30,32 @@ Data$education_yearMIGraduation <- factor(Data$education_yearMIGraduation, order
 
 hist(Data$education_yearFirstGraduation)
 
+Data$yearSinceMIGraduation <- NA
+Data$yearSinceMIGraduation <- factor(2023 - Data$education_yearMIGraduation)
+table(Data$yearSinceMIGraduation)
 
-
-
-model <- glm(donated ~ education_yearFirstGraduation*Programme + ses_female, 
+model <- glm(donated ~ yearSinceMIGraduation + Programme + ses_female, 
              data = Data, family = binomial())
 summary(model)
 
-year()
 
- "historic_dateFirstDonation" - "education_yearMIGraduation" 
+df <- expand.grid(yearSinceMIGraduation = factor(1:63),
+                  Programme = unique(Data$Programme),
+                  ses_female = c(0, 1))
+view(df)
+
+df$prob <- predict(model, newdata = df,
+  type = "response")
+
+GraphData <- df %>% 
+  group_by(yearSinceMIGraduation, Programme) %>% 
+  summarise(prob = mean(prob))
+
+ggplot(data = GraphData, aes(y = prob, x = yearSinceMIGraduation)) +
+  #geom_point(aes(color = Programme)) +
+  geom_line(aes(color = Programme, group = Programme))
 
 
-Data$donationGap <- NA
-Data$donationGap[] 
 
 
-expand.grid()
-predict(type = "response")
+
