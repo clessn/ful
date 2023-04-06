@@ -9,7 +9,20 @@ Data <- readRDS("_SharedFolder_fondation-ulaval/Data/CleanData.rds") %>%
      education_FirstDegree_Admin == 1 |
      education_FirstDegree_AgroNutri == 1 |
      education_FirstDegree_Music == 1 |
-     education_FirstDegree_Pharm == 1)) 
+     education_FirstDegree_Pharm == 1 | 
+     education_FirstDegree_ArchiArtDesign == 1 |
+     education_FirstDegree_Droit == 1 |
+     education_FirstDegree_EtudeSup == 1 |
+     education_FirstDegree_Education == 1 |
+     education_FirstDegree_ForestGeo == 1 |
+     education_FirstDegree_LettresScienceHum == 1 |
+     education_FirstDegree_MedDentaire == 1 |
+     education_FirstDegree_Philo == 1 |
+     education_FirstDegree_ScienceGenie == 1 |
+     education_FirstDegree_ScienceInfirmiere == 1 |
+     education_FirstDegree_ScienceSociale == 1 |
+     education_FirstDegree_Theologie == 1 |
+     education_FirstDegree_MultidispCollegeUni == 1))
 
 
 Data$Programme <- NA
@@ -18,6 +31,22 @@ Data$Programme[Data$education_FirstDegree_Admin == 1] <- "Administration"
 Data$Programme[Data$education_FirstDegree_AgroNutri == 1] <- "Agronomie"
 Data$Programme[Data$education_FirstDegree_Music == 1] <- "Musique"
 Data$Programme[Data$education_FirstDegree_Pharm == 1] <- "Pharmacie"
+Data$Programme[Data$education_FirstDegree_ArchiArtDesign == 1] <- "Aménagement, architecture, art et design"
+Data$Programme[Data$education_FirstDegree_Droit == 1] <- "Droit"
+Data$Programme[Data$education_FirstDegree_EtudeSup == 1] <- "Études supérieures"
+Data$Programme[Data$education_FirstDegree_Education == 1] <- "Éducation"
+Data$Programme[Data$education_FirstDegree_ForestGeo == 1] <- "Foresterie, géographie et géomatique"
+Data$Programme[Data$education_FirstDegree_LettresScienceHum == 1] <- "Lettres et sciences humaines"
+Data$Programme[Data$education_FirstDegree_MedDentaire == 1] <- "Médecine dentaire"
+Data$Programme[Data$education_FirstDegree_Philo == 1] <- "Philosophie"
+Data$Programme[Data$education_FirstDegree_ScienceGenie == 1] <- "Sciences et génie"
+Data$Programme[Data$education_FirstDegree_ScienceInfirmiere == 1] <- "Sciences infirmières"
+Data$Programme[Data$education_FirstDegree_ScienceSociale == 1] <- "Sciences sociales"
+Data$Programme[Data$education_FirstDegree_Theologie == 1] <- "Théologie et sciences religieuses"
+Data$Programme[Data$education_FirstDegree_MultidispCollegeUni == 1] <- "Diplôme multidisciplinaire ou collège universitaire"
+
+
+
 table(Data$Programme)
 
 Data$Programme <- factor(Data$Programme, ordered = F)

@@ -223,6 +223,62 @@ CleanData$education_FirstDegree_Pharm <- 0
 CleanData$education_FirstDegree_Pharm[Data$UL_ACAD_ORG_01 == "PHA"] <- 1
 table(CleanData$education_FirstDegree_Pharm)
 
+CleanData$education_FirstDegree_ArchiArtDesign <- 0
+CleanData$education_FirstDegree_ArchiArtDesign[Data$UL_ACAD_ORG_01 == "ARC"] <- 1
+table(CleanData$education_FirstDegree_ArchiArtDesign)
+
+CleanData$education_FirstDegree_Droit <- 0
+CleanData$education_FirstDegree_Droit[Data$UL_ACAD_ORG_01 == "DRT"] <- 1
+table(CleanData$education_FirstDegree_Droit)
+
+CleanData$education_FirstDegree_EtudeSup <- 0
+CleanData$education_FirstDegree_EtudeSup[Data$UL_ACAD_ORG_01 == "EGR"] <- 1
+table(CleanData$education_FirstDegree_EtudeSup)
+
+CleanData$education_FirstDegree_Education <- 0
+CleanData$education_FirstDegree_Education[Data$UL_ACAD_ORG_01 == "EDC"] <- 1
+table(CleanData$education_FirstDegree_Education)
+
+CleanData$education_FirstDegree_ForestGeo <- 0
+CleanData$education_FirstDegree_ForestGeo[Data$UL_ACAD_ORG_01 == "FFG"] <- 1
+table(CleanData$education_FirstDegree_ForestGeo)
+
+CleanData$education_FirstDegree_HautesEtudesInt <- 0
+CleanData$education_FirstDegree_HautesEtudesInt[Data$UL_ACAD_ORG_01 == "IQHEI-Inst"] <- 1
+table(CleanData$education_FirstDegree_HautesEtudesInt) #aucun résultat
+
+CleanData$education_FirstDegree_LettresScienceHum <- 0
+CleanData$education_FirstDegree_LettresScienceHum[Data$UL_ACAD_ORG_01 == "LET"] <- 1
+table(CleanData$education_FirstDegree_LettresScienceHum)
+
+CleanData$education_FirstDegree_MedDentaire <- 0
+CleanData$education_FirstDegree_MedDentaire[Data$UL_ACAD_ORG_01 == "MDD"] <- 1
+table(CleanData$education_FirstDegree_MedDentaire)
+
+CleanData$education_FirstDegree_Philo <- 0
+CleanData$education_FirstDegree_Philo[Data$UL_ACAD_ORG_01 == "PHI"] <- 1
+table(CleanData$education_FirstDegree_Philo)
+
+CleanData$education_FirstDegree_ScienceGenie <- 0
+CleanData$education_FirstDegree_ScienceGenie[Data$UL_ACAD_ORG_01 == "SCI"] <- 1
+table(CleanData$education_FirstDegree_ScienceGenie)
+
+CleanData$education_FirstDegree_ScienceInfirmiere <- 0
+CleanData$education_FirstDegree_ScienceInfirmiere[Data$UL_ACAD_ORG_01 == "SIN"] <- 1
+table(CleanData$education_FirstDegree_ScienceInfirmiere)
+
+CleanData$education_FirstDegree_ScienceSociale <- 0
+CleanData$education_FirstDegree_ScienceSociale[Data$UL_ACAD_ORG_01 == "SSC"] <- 1
+table(CleanData$education_FirstDegree_ScienceSociale)
+
+CleanData$education_FirstDegree_Theologie <- 0
+CleanData$education_FirstDegree_Theologie[Data$UL_ACAD_ORG_01 == "THL"] <- 1
+table(CleanData$education_FirstDegree_Theologie)
+
+CleanData$education_FirstDegree_MultidispCollegeUni <- 0
+CleanData$education_FirstDegree_MultidispCollegeUni[Data$UL_ACAD_ORG_01 == "UNV"] <- 1
+table(CleanData$education_FirstDegree_MultidispCollegeUni)
+
 
 #Programme du premier diplome
 table(Data$UL_MAJOR1_CD_01)
