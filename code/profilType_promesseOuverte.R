@@ -1,5 +1,6 @@
 
 library(tidyverse)
+library(clessnverse)
 
 Data <- readRDS("_SharedFolder_fondation-ulaval/Data/CleanData.rds") %>% 
   select(ses_female, ses_origin_qc, education_yearFirstGraduation, 
@@ -16,6 +17,24 @@ Graph <- Data %>%
   drop_na()
 
 ggplot(Graph, aes(y= prop, x= interaction(ses_female, ses_origin_qc))) + 
-  geom_bar(stat = "identity", aes(fill = ses_origin_qc)) +
-  theme()
+  geom_bar(stat = "identity", aes(fill = factor(ses_female), color = factor(ses_female)),
+           alpha = 0.6, show.legend = FALSE) +
+  scale_x_discrete(labels = c(
+    "Homme hors-Québec",
+    "Femme hors-Québec",
+    "Homme du Québec",
+    "Femme du Québec")) +
+  scale_fill_manual(values = c( "1" = "#FFC103",
+                                "0" = "#E30513")) +
+  scale_color_manual(values = c( "1" = "#FFC103",
+                                 "0" = "#E30513")) +
+  scale_y_continuous(limits = c(0, 1.5), breaks = c(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5)) +
+  labs(title = "Dons planifiés") +
+  ylab("Proportion (%)") +
+  xlab(element_blank()) +
+  theme_classic() +
+  theme(axis.ticks = element_blank())
+
+ggsave("_SharedFolder_fondation-ulaval/graphs/profilsDonsPlanifiés.png",
+       width = 12, height = 9)  
 
