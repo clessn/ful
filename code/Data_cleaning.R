@@ -1123,4 +1123,29 @@ CleanData$prospectif_plannedDonation[Data$UL_DON_PLANIF=="OUI"] <- 1
 table(CleanData$prospectif_plannedDonation)
 sum(is.na(CleanData$prospectif_plannedDonation))
 
+# Programme
+CleanData$Programme <- NA
+CleanData$Programme[CleanData$education_FirstDegree_Medecine == 1] <- "Médecine"
+CleanData$Programme[CleanData$education_FirstDegree_Admin == 1] <- "Administration"
+CleanData$Programme[CleanData$education_FirstDegree_AgroNutri == 1] <- "Agronomie"
+CleanData$Programme[CleanData$education_FirstDegree_Music == 1] <- "Musique"
+CleanData$Programme[CleanData$education_FirstDegree_Pharm == 1] <- "Pharmacie"
+CleanData$Programme[CleanData$education_FirstDegree_ArchiArtDesign == 1] <- "Aménagement, architecture, art et design"
+CleanData$Programme[CleanData$education_FirstDegree_Droit == 1] <- "Droit"
+CleanData$Programme[CleanData$education_FirstDegree_EtudeSup == 1] <- "Études supérieures"
+CleanData$Programme[CleanData$education_FirstDegree_Education == 1] <- "Éducation"
+CleanData$Programme[CleanData$education_FirstDegree_ForestGeo == 1] <- "Foresterie, géographie et géomatique"
+CleanData$Programme[CleanData$education_FirstDegree_LettresScienceHum == 1] <- "Lettres et sciences humaines"
+CleanData$Programme[CleanData$education_FirstDegree_MedDentaire == 1] <- "Médecine dentaire"
+CleanData$Programme[CleanData$education_FirstDegree_Philo == 1] <- "Philosophie"
+CleanData$Programme[CleanData$education_FirstDegree_ScienceGenie == 1] <- "Sciences et génie"
+CleanData$Programme[CleanData$education_FirstDegree_ScienceInfirmiere == 1] <- "Sciences infirmières"
+CleanData$Programme[CleanData$education_FirstDegree_ScienceSociale == 1] <- "Sciences sociales"
+CleanData$Programme[CleanData$education_FirstDegree_Theologie == 1] <- "Théologie et sciences religieuses"
+CleanData$Programme[CleanData$education_FirstDegree_MultidispCollegeUni == 1] <- "Diplôme multidisciplinaire ou collège universitaire"
+
+#yearSinceMIGraduation
+CleanData$yearSinceMIGraduation <- NA
+CleanData$yearSinceMIGraduation <- 2023 - CleanData$education_yearMIGraduation
+
 saveRDS(CleanData, "_SharedFolder_fondation-ulaval/Data/CleanData.rds")
