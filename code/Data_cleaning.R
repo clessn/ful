@@ -518,6 +518,20 @@ table(Data$UL_TYP_COL_FUL_CD)
 
 # HISTORIQUE ####
 
+#Date du dernier don
+Data$UL_DT_DER_DON_1[1:15] 
+sum(is.na(Data$UL_DT_DER_DON_1))
+unique(Data$UL_DT_DER_DON_1)[1:10]
+table(Data$UL_DT_DER_DON_1)[1:100]
+CleanData$historic_lastDonation_date <- as.Date(Data$UL_DT_DER_DON_1)
+table(CleanData$historic_lastDonation_date)[1:50]
+
+#Date de l'avant-dernier don
+unique(Data$UL_DT_DER_DON_2)[1:10]
+table(Data$UL_DT_DER_DON_2)[1:100]
+CleanData$historic_penulDonation_date <- as.Date(Data$UL_DT_DER_DON_2)
+table(CleanData$historic_penulDonation_date)[1:50]
+
 # Montant totale de l'encaissement de l'an passé
 unique(Data$UL_ENC_AN_PASSE)[1:10]
 table(Data$UL_ENC_AN_PASSE)[1:100]
@@ -716,6 +730,12 @@ CleanData$historic_donationsLastYear_paymentType_VB <- 0
 CleanData$historic_donationsLastYear_paymentType_VB[Data$UL_DON_ANN_TYP_1 == "VB"] <- 1
 table(CleanData$historic_donationsLastYear_paymentType_VB)
 
+#Type TRBANC
+table(Data$UL_TYP_DER_DON_3)
+CleanData$historic_second2LastDonation_type_trbanc <- 0
+CleanData$historic_second2LastDonation_type_trbanc[Data$UL_TYP_DER_DON_3 == "TRBANC"] <- 1
+table(CleanData$historic_second2LastDonation_type_trbanc)
+
 # Avant-dernière année de dons annuels
 unique(Data$UL_DON_ANN_YR_2)[1:10]
 table(Data$UL_DON_ANN_YR_2)[1:100]
@@ -890,8 +910,73 @@ CleanData$historic_donationsSecond2LastYear_paymentType_VB <- 0
 CleanData$historic_donationsSecond2LastYear_paymentType_VB[Data$UL_DON_ANN_TYP_3 == "VB"] <- 1
 table(CleanData$historic_donationsSecond2LastYear_paymentType_VB)
 
+#Nombre d'années où des dons ont été effectués
+unique(Data$TTL_YR_GIVING)[1:10]
+table(Data$TTL_YR_GIVING)[1:100]
+CleanData$historic_donations_numberYears <- clean_raw_num(Data$TTL_YR_GIVING)
+table(CleanData$historic_donations_numberYears)
 
+#historic_pledgesLife_highestAmount_startDate
+Data$UL_PPI_DT_START[1:15] 
+sum(is.na(Data$UL_PPI_DT_START))
+unique(Data$UL_PPI_DT_START)[1:10]
+table(Data$UL_PPI_DT_START)[1:100]
+CleanData$historic_pledgesLife_highestAmount_startDate <- as.Date(Data$UL_PPI_DT_START)
+table(CleanData$historic_pledgesLife_highestAmount_startDate)[1:50]
 
+#historic_pledgesLife_highestAmount_endDate
+Data$UL_PPI_DT_END[1:15] 
+sum(is.na(Data$UL_PPI_DT_END))
+unique(Data$UL_PPI_DT_END)[1:10]
+table(Data$UL_PPI_DT_END)[1:100]
+CleanData$historic_pledgesLife_highestAmount_startEND <- as.Date(Data$UL_PPI_DT_END)
+table(CleanData$historic_pledgesLife_highestAmount_startEND)[1:50]
+
+#Année du dernier don
+table(Data$UL_ANN_DER_DON)
+CleanData$historic_YearLastDonation <- clean_raw_num(Data$UL_ANN_DER_DON)
+table(CleanData$historic_YearLastDonation)
+
+#Montant des dons/paiements versés à vie
+table(Data$UL_MNT_VERSE_VIE)[1:50]
+CleanData$historic_donationsLife_totalAmount <- clean_raw_num(Data$UL_MNT_VERSE_VIE)
+table(CleanData$historic_donationsLife_totalAmount)
+
+#Nombre d'années consécutives où des dons ont été effectués à partir de l'année courante.
+unique(Data$UL_CNS_YR_GIVING)[1:10]
+table(Data$UL_CNS_YR_GIVING)[1:100]
+CleanData$historic_donationsConsecutiveYears <- clean_raw_num(Data$UL_CNS_YR_GIVING)
+table(CleanData$historic_donationsConsecutiveYears)
+
+#Montant du don le plus important
+unique(Data$UL_DON_PLUS_IMP)[1:10]
+table(Data$UL_DON_PLUS_IMP)[1:100]
+CleanData$historic_donationsLife_highestAmount <- clean_raw_num(Data$UL_DON_PLUS_IMP)
+table(CleanData$historic_donationsLife_highestAmount)
+
+#Montant de la promesse de don la plus importante
+unique(Data$UL_PROM_PLUS_IMP)[1:10]
+table(Data$UL_PROM_PLUS_IMP)[1:100]
+CleanData$historic_pledgesLife_highestAmount <- clean_raw_num(Data$UL_PROM_PLUS_IMP)
+table(CleanData$historic_pledgesLife_highestAmount)
+
+#Montant total des engagements à vie
+unique(Data$UL_ENG_VIE)[1:10]
+table(Data$UL_ENG_VIE)[1:100]
+CleanData$historic_commitmentLife_totalAmount <- clean_raw_num(Data$UL_ENG_VIE)
+table(CleanData$historic_commitmentLife_totalAmount)
+
+#Le nombre d'engagements à vie
+unique(Data$UL_ENG_NBR_VIE)[1:10]
+table(Data$UL_ENG_NBR_VIE)[1:100]
+CleanData$historic_commitmentLife_number <- clean_raw_num(Data$UL_ENG_NBR_VIE)
+table(CleanData$historic_commitmentLife_number)
+
+#Montant totale de l'engagement de l'an passé
+unique(Data$UL_ENG_AN_PASSE)[1:10]
+table(Data$UL_ENG_AN_PASSE)[1:100]
+CleanData$historic_commitmentLastYear_totalAmount <- clean_raw_num(Data$UL_ENG_AN_PASSE)
+table(CleanData$historic_commitmentLastYear_totalAmount)
 
 # PROSPECTIF ####
 
