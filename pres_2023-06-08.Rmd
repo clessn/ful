@@ -1,0 +1,50 @@
+---
+title: "Analyse des donations à la FUL"
+date: "8 juin 2023"
+output: beamer_presentation
+fontsize: 12pt
+mainfont: Helvetica Neue
+output: 
+  beamer_presentation:
+    template: Theme_Pres_WPSA21.tex
+header-includes:
+  - \usepackage{lmodern}
+  - \usepackage{multicol}
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+# Structure de la présentation
+1. Mise en contexte
+2. Quand survient le premier don?
+3. Rouge et Or
+4. Dons planifiés et héritage
+5. Réponse positive aux communications
+6. Prochaines étapes
+
+---
+
+# 1. Mise en contexte
+
+- Objectifs
+- Domestication des données
+  - Obstacles "physiques"
+  - Variables dont on ne connait pas la signification
+- Explorations corrélationnelles
+
+
+
+
+
+
+
+
+
+
+
+
+
