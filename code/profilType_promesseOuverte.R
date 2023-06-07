@@ -31,13 +31,14 @@ ggplot(Graph, aes(y= prop, x= interaction(ses_female, ses_origin_qc))) +
                                  "0" = "#E30513")) +
   scale_y_continuous(limits = c(0, 1.5), breaks = c(0, 0.25, 0.5, 0.75, 1, 1.25, 1.5)) +
   labs(title = "Dons planifiés") +
-  ylab("Proportion (%) \n" ) +
+  ylab("Proportion du groupe qui a\n fait un don planifié (%)" ) +
   xlab(element_blank()) +
-  theme_classic() +
+  clessnverse::theme_clean_light() +
   theme(axis.ticks = element_blank(),
         axis.text.x = element_text(size = 15),
         axis.text.y = element_text(size = 15),
-        axis.title.y = element_text(size = 15),
+        axis.title.y = element_text(size = 15,
+                                    hjust = 0.5),
         title = element_text(size = 20))
 
 

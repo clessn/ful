@@ -135,6 +135,22 @@ Graph2 <- Data %>%
          prop = n/sum) %>% 
   filter(donated == 1)
 
-ggplot()
+ggplot(Graph2, aes(x = prop*100, y = reorder(sport, prop))) +
+  geom_bar(stat = "identity",
+           aes(alpha = sum),
+           fill = "#E30513",
+           show.legend = F) +
+  geom_text(x = -1.75, hjust = 1,
+            aes(label = paste0("n = ", sum))) +
+  clessnverse::theme_clean_light() +
+  xlab("Proportion des athlètes ayant\ndéjà donné à la FUL (%)") +
+  ylab("") +
+  scale_x_continuous(limits = c(-4, 100)) +
+  theme(axis.ticks = element_blank(),
+        axis.text.x = element_text(size = 15),
+        axis.text.y = element_text(size = 15),
+        axis.title.x = element_text(size = 20,
+                                    hjust = 0.5))
 
-
+ggsave("_SharedFolder_fondation-ulaval/graphs/par_sport.png",
+       width = 12, height = 9)
