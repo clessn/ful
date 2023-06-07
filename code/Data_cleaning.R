@@ -11,6 +11,7 @@ library(tidyverse)
 mydb <- dbConnect(RSQLite::SQLite(), "_SharedFolder_fondation-ulaval/Data/ful_bd.db")
 
 Data <- dbGetQuery(mydb, "SELECT
+                          UL_NO_CODE,
                           SEX,
                           BIRTHDATE,
                           DT_OF_DEATH,
@@ -96,11 +97,18 @@ Data <- dbGetQuery(mydb, "SELECT
 
 dbDisconnect(mydb)
 
+
+## CSV of r&o
+ro <- read.csv("_SharedFolder_fondation-ulaval/Data/__previous_data/Rouge et Or.CSV") %>% 
+  select(UL_NO_CODE, ro_sport = INVLV_CD, ro_startDate = TO_CHAR.B.START_DT..YYYY.MM.DD)
+
+
 ##***********###
 # Generate empty CleanData ####
 ##***********###
 
-CleanData <- data.frame(id = 1:nrow(Data))
+CleanData <- data.frame(id = 1:nrow(Data),
+                        UL_NO_CODE = Data$UL_NO_CODE)
 
 
 ##***********###
@@ -1148,4 +1156,19 @@ CleanData$Programme[CleanData$education_FirstDegree_MultidispCollegeUni == 1] <-
 CleanData$yearSinceMIGraduation <- NA
 CleanData$yearSinceMIGraduation <- 2023 - CleanData$education_yearMIGraduation
 
-saveRDS(CleanData, "_SharedFolder_fondation-ulaval/Data/CleanData.rds")
+# ROUGE ET OR ####
+
+ro2 <- ro %>% 
+  arrange(UL_NO_CODE) %>% 
+  group_by(UL_NO_CODE) %>% 
+  mutate(n = 1:n()) %>% 
+  pivot_wider(id_cols = UL_NO_CODE,
+              names_from = n,
+              values_from = c(ro_sport, ro_startDate)) %>% 
+  mutate(ro_athlete = 1)
+
+CleanData2 <- left_join(CleanData, ro2, by = "UL_NO_CODE") %>% 
+  replace_na(list(ro_athlete = 0))
+
+# Save it ####
+saveRDS(CleanData2, "_SharedFolder_fondation-ulaval/Data/CleanData.rds")
