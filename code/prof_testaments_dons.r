@@ -51,15 +51,16 @@ ggplot(data_prof_graphs, aes(x = job, y = proportion, fill = job)) +
     "Autres employés")) +
   scale_y_continuous(limits = c(0, 0.01)) +
   labs(title = "Dons en héritage") +
-  ylab("Proportion (%) \n") +
+  ylab("Proportion du groupe qui a\nfait un don en héritage (%)") +
   xlab(element_blank()) +
   scale_fill_manual(values = c("#ed1b24", "#FFC904", "#ed1b24")) +
+  clessnverse::theme_clean_light() +
   theme(axis.ticks = element_blank(),
         axis.text.x = element_text(size = 15),
         axis.text.y = element_text(size = 15),
-        axis.title.y = element_text(size = 15),
-        title = element_text(size = 20)) +
-  theme_classic()
+        axis.title.y = element_text(size = 15,
+                                    hjust = 0.5),
+        title = element_text(size = 20))
 
 ggsave("_SharedFolder_fondation-ulaval/graphs/prof_dons_heritage.png",
        width = 10, height = 7)
