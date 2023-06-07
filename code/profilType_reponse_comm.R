@@ -3,7 +3,7 @@ library(tidyverse)
 nb_jour_reponse <- 30
 
 # Potentiels donateurs de départ
-data_FUL <- readRDS("../data/CleanData.rds")
+data_FUL <- readRDS("_SharedFolder_fondation-ulaval/Data/CleanData.rds")
 
 # Potentiels donateurs avec une date de dernière communication
 comm_data_FUL <- data_FUL %>%
@@ -61,7 +61,6 @@ ggplot(Graph, aes(y= prop, x= interaction(ses_female, ses_origin_qc))) +
         axis.text.y = element_text(size = 15),
         axis.title.y = element_text(size = 15),
         title = element_text(size = 20))
-
 
 ggsave("_SharedFolder_fondation-ulaval/graphs/profilsDonsPlanifiés.png",
        width = 12, height = 9)
