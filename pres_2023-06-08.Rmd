@@ -1,7 +1,6 @@
 ---
 title: "Analyse des donations à la FUL"
 date: "8 juin 2023"
-output: beamer_presentation
 fontsize: 12pt
 mainfont: Helvetica Neue
 output: 
@@ -32,9 +31,7 @@ knitr::opts_chunk$set(echo = FALSE)
 
 - Retour sur les questions
 - Probabilités prédites
-  - Obstacles "physiques"
-  - Variables dont on ne connait pas la signification
-- Explorations corrélationnelles
+
 
 # 2. Quand survient le premier don?
 
@@ -42,7 +39,7 @@ knitr::opts_chunk$set(echo = FALSE)
 knitr::include_graphics("_SharedFolder_fondation-ulaval/graphs/delta_first_don_all.png")
 ```
 
-##  Selon les facultés...
+#  Selon les facultés...
 
 ```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
 knitr::include_graphics("_SharedFolder_fondation-ulaval/graphs/delta_first_don_byProgram.png")
@@ -54,7 +51,7 @@ knitr::include_graphics("_SharedFolder_fondation-ulaval/graphs/delta_first_don_b
 knitr::include_graphics("_SharedFolder_fondation-ulaval/graphs/athletes_descriptif.png")
 ```
 
-## Selon les sports
+# Selon les sports
 
 ```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
 knitr::include_graphics("_SharedFolder_fondation-ulaval/graphs/par_sport.png")
@@ -63,11 +60,20 @@ knitr::include_graphics("_SharedFolder_fondation-ulaval/graphs/par_sport.png")
 # 4. Dons planifiés et héritages
 
 ```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
-knitr::include_graphics("_SharedFolder_fondation-ulaval/graphs/par_sport.png")
+knitr::include_graphics("_SharedFolder_fondation-ulaval/graphs/profilsDonsPlanifiés.png")
+```
+
+# Professeurs et héritages
+
+```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
+knitr::include_graphics("_SharedFolder_fondation-ulaval/graphs/prof_dons_heritage.png")
 ```
 
 # 5. Réponse positive aux communications
 
+```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
+knitr::include_graphics("_SharedFolder_fondation-ulaval/graphs/profilsReponseComm.png")
+```
 
 
 # 6. Prochaines étapes
