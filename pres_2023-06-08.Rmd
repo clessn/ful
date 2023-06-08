@@ -29,56 +29,70 @@ knitr::opts_chunk$set(echo = FALSE)
 
 # 1. Mise en contexte
 
+- Accès et nettoyage des données
 - Retour sur les questions
+  - Quand survient le premier don?
+  - Est-ce que les athlètes du rouge et or donnent plus?
+  - Est-ce que les professeurs donnent plus en héritage?
+  - Est-ce qu'il y a une réponse positive aux communications
 - Probabilités prédites
 
 
 # 2. Quand survient le premier don?
 
-```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
+```{r echo=FALSE, out.width="85%", fig.align="center", fig.show="hold"}
 knitr::include_graphics("_SharedFolder_fondation-ulaval/graphs/delta_first_don_all.png")
 ```
 
 #  Selon les facultés...
 
-```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
+```{r echo=FALSE, out.width="85%", fig.align="center", fig.show="hold"}
 knitr::include_graphics("_SharedFolder_fondation-ulaval/graphs/delta_first_don_byProgram.png")
 ```
 
 # 3. Rouge et Or
 
-```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
+```{r echo=FALSE, out.width="75%", fig.align="center", fig.show="hold"}
 knitr::include_graphics("_SharedFolder_fondation-ulaval/graphs/athletes_descriptif.png")
 ```
 
 # Selon les sports
 
-```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
+```{r echo=FALSE, out.width="85%", fig.align="center", fig.show="hold"}
 knitr::include_graphics("_SharedFolder_fondation-ulaval/graphs/par_sport.png")
 ```
 
 # 4. Dons planifiés et héritages
 
-```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
+```{r echo=FALSE, out.width="85%", fig.align="center", fig.show="hold"}
 knitr::include_graphics("_SharedFolder_fondation-ulaval/graphs/profilsDonsPlanifiés.png")
 ```
 
 # Professeurs et héritages
 
-```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
+```{r echo=FALSE, out.width="85%", fig.align="center", fig.show="hold"}
 knitr::include_graphics("_SharedFolder_fondation-ulaval/graphs/prof_dons_heritage.png")
 ```
 
 # 5. Réponse positive aux communications
 
-```{r echo=FALSE, out.width="70%", fig.align="center", fig.show="hold"}
+```{r echo=FALSE, out.width="85%", fig.align="center", fig.show="hold"}
 knitr::include_graphics("_SharedFolder_fondation-ulaval/graphs/profilsReponseComm.png")
 ```
 
 
 # 6. Prochaines étapes
 
+- Modélisation
 
+- Questions précises
+
+- Probabilité par individu (indice global)
+  - Probabilité de donner
+  - Montant attendu
+  - Délai avant don
+
+- Suggestions pour collecte de données
 
 
 
