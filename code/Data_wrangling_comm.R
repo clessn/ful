@@ -158,6 +158,7 @@ DataComm <- rbind(GraduateCampagne, GraduateEvenement, studiedCampagne, studiedE
                   inactive_employeeCampagne, inactive_employeeEvenement, retiredCampagne,
                   retiredEvenement)
 
+saveRDS(DataComm)
 
 
 
