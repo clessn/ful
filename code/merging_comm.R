@@ -15,4 +15,4 @@ for (i in 1:length(files)){
   print(i)
 }
 
-saveRDS(d, "_SharedFolder_fondation-ulaval/Data/pipeline/lake/datacomm.rds")
+saveRDS(df, "_SharedFolder_fondation-ulaval/Data/pipeline/lake/datacomm.rds")
