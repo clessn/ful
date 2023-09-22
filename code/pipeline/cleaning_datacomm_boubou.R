@@ -44,3 +44,4 @@ Clean$OutcomeSollicitationReussie[Data$Motif == "S-Non rej."] <- 0.25 # Non rejo
 Clean$OutcomeSollicitationReussie[Data$Motif == "S-Refusé"] <- 0 # Negatif
 table(Clean$OutcomeSollicitationReussie)
 
+saveRDS(Clean, "_SharedFolder_fondation-ulaval/Data/pipeline/warehouse/datacommBoubou.rds")
