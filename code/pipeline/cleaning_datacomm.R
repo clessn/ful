@@ -137,6 +137,21 @@ Clean$OutcomeSollicitationReussie[Data$Motif == "S-Refusé"] <- 0 # Negatif
 table(Clean$OutcomeSollicitationReussie)
 
 
+# IF outcome sollicitation is missing, remove -----------------------------
+
+### Only if comm_type == sollicitation
+Clean2 <- Clean %>% 
+  filter(!(comm_type == "sollicitation" & is.na(OutcomeSollicitationReussie)),
+         !(comm_type == "evenement" & is.na(OutcomeEvenementRSVP)))
+
+Clean2 %>% 
+  mutate(na = is.na(OutcomeEvenementRSVP)) %>% 
+  group_by(comm_type) %>%
+  summarise(n = n(),
+            nas = sum(na)) %>% 
+  mutate(prop = nas/n)
+  
+
 # Save it -----------------------------------------------------------------
 saveRDS(Clean, "_SharedFolder_fondation-ulaval/Data/pipeline/warehouse/datacomm.rds")
-
+saveRDS(Clean2, "_SharedFolder_fondation-ulaval/Data/pipeline/warehouse/datacomm_outcome.rds")
