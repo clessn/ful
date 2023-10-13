@@ -12,6 +12,18 @@ get_n_comm <- function(commtype, data = DataComm){
   return(output)
 }
 
+don_first <- function(datecomms, datedons, data = DataRep){
+  # S'assure que les dates sont au format Date
+  datecomms <- as.Date(datecomms)
+  datedons <- as.Date(datedons)
+  
+  # Utilise ifelse pour gérer les vecteurs
+  output <- ifelse(is.na(datedons), 
+                   0, 
+                   ifelse(datecomms >= datedons, 1, 0))
+  return(output)
+}
+
 
 
 

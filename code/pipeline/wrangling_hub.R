@@ -18,17 +18,7 @@ datedons <- as.Date(c(NA, NA, "2021-08-15", "1987-11-30"))
 
 ### fonction ###
 
-don_first <- function(datecomms, datedons, data = DataRep){
-  # S'assure que les dates sont au format Date
-  datecomms <- as.Date(datecomms)
-  datedons <- as.Date(datedons)
-  
-  # Utilise ifelse pour gérer les vecteurs
-  output <- ifelse(is.na(datedons), 
-                   0, 
-                   ifelse(datecomms >= datedons, 1, 0))
-  return(output)
-}
+
 
 result <- don_first(datecomms, datedons)
 print(result)
