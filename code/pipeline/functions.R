@@ -1,17 +1,16 @@
-# function
-
-get_n_comm <- function(ul_id, commtype, date, data = DataComm){
-  date <- as.Date(date)
-  filtered_data <- data[data$UL_NO_CODE == ul_id &
-                          data$comm_type == commtype &
-                          data$date_comm < date,]
-  n <- nrow(filtered_data)
-  return(n)
+### function
+get_n_comm <- function(commtype, data = DataComm){
+  output <- data %>% 
+    mutate(is_commtype = ifelse(comm_type == commtype, 1, 0),
+           initorder = row_number()) %>%
+    arrange(date_comm) %>% 
+    group_by(UL_NO_CODE) %>% 
+    mutate(n = cumsum(is_commtype)) %>% 
+    ungroup() %>% 
+    arrange(initorder) %>% 
+    pull(., n)
+  return(output)
 }
-
-
-
-
 
 
 

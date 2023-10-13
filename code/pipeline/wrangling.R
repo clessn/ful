@@ -13,11 +13,22 @@ datecomm <- as.Date("2015-04-12")
 
 datedon <- DataRep$historic_dateFirstDonation[DataRep$UL_NO_CODE == ul_id]
 
+### nb of comm by commtype ###
+
+DataComm$n_sollicitation <- get_n_comm(commtype = "sollicitation")
+DataComm$n_evenement <- get_n_comm(commtype = "evenement")
+DataComm$n_fidelisation <- get_n_comm(commtype = "fidelisation")
+DataComm$n_remerciement <- get_n_comm(commtype = "remerciement")
+DataComm$n_sondage <- get_n_comm(commtype = "sondage")
+
+
 ### vecteur ###
 
 vec_datecomm <- as.Date(c(DataComm$date_comm))
 vec_ul_id <- c(DataRep$UL_NO_CODE)
 vec_datedon <- as.Date(c(DataRep$historic_dateFirstDonation[DataRep$UL_NO_CODE == ul_id]))
+
+
 
 ### fonction ###
 
