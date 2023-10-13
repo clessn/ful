@@ -4,7 +4,8 @@ library(data.table)
 source("code/pipeline/functions.R", encoding = "UTF-8")
 
 # Data --------------------------------------------------------------------
-DataComm <- readRDS("_SharedFolder_fondation-ulaval/Data/pipeline/warehouse/datacomm.rds")
+DataComm <- readRDS("_SharedFolder_fondation-ulaval/Data/pipeline/warehouse/datacomm.rds") %>% 
+  select(-activite, -groupe_cible, -Methode)
 DataOutcome <- readRDS("_SharedFolder_fondation-ulaval/Data/pipeline/warehouse/datacomm_outcome.rds")
 DataRep <- readRDS("_SharedFolder_fondation-ulaval/Data/pipeline/warehouse/CleanData.rds") %>% 
   distinct(UL_NO_CODE, .keep_all = TRUE)
@@ -48,8 +49,14 @@ RepSubset2 <- RepSubset %>%
   mutate(across(starts_with("rosport_"), as.integer),
          across(starts_with("rosport_"), ~replace_na(.x, 0)))
 
+CommWithStable <- left_join(DataComm, RepSubset2, by = "UL_NO_CODE")
 
 # Add rolling comm variables ----------------------------------------------
 
+CommWithStable$rolling_n_sollicitation <- get_n_comm("sollicitation")
+CommWithStable$rolling_n_fidelisation <- get_n_comm("fidelisation")
+CommWithStable$rolling_n_evenement <- get_n_comm("evenement")
+CommWithStable$rolling_n_remerciement <- get_n_comm("remerciement")
+CommWithStable$rolling_n_sondage <- get_n_comm("sondage")
 
 
