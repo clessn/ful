@@ -20,7 +20,6 @@ DataComm$has_donated_asof_date <- don_first(DataComm$date_comm, DataComm$date_fi
 # Stable respondents variables --------------------------------------------
 
 ## 1. wrangle, select ------------------------------------------------------
-
 sports <- c("NATATI", "ATHLET", "BASKET", "VOLLEY", "FOOTBA",
             "SOCCER", "R&OGEN", "SKIRO", "HOCKEY", "XCOUNT",
             "BADMIN", "RUGBY", "HANDBA", "TENNIS", "GOLFRO")
@@ -43,11 +42,14 @@ for (sport in sports) {
   RepSubset <- RepSubset %>%
     mutate(!!paste0("rosport_", sport) := apply(select(., starts_with("ro_sport")) == sport, 1, any))
 }
+
 RepSubset2 <- RepSubset %>%
   select(-all_of(paste0("ro_sport_", 1:4))) %>% 
   mutate(across(starts_with("rosport_"), as.integer),
          across(starts_with("rosport_"), ~replace_na(.x, 0)))
 
+
+# Add rolling comm variables ----------------------------------------------
 
 
 
