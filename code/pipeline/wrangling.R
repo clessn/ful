@@ -63,13 +63,50 @@ print(resultats)
 
 
 
+prop == à chaque date, voir (cumsum nb outcome positif)/(cumsum nb outcome total)
+
+
+
+prop_outcome <- function(commtype, data = DataOutcome){
+  output <- data %>% 
+    mutate(is_commtype = ifelse(comm_type == commtype, 1, 0),
+                   initorder = row_number()) %>%
+    arrange(date_comm) %>% 
+    group_by(UL_NO_CODE) %>% 
+    mutate(n = cumsum(is_commtype),
+           n = ifelse(n == 0, 0, n-1),
+           ) %>% 
+    ungroup() %>% 
+    arrange(initorder) %>% 
+    pull(., n)
+    
+}
 
 
 
 
+cumsum(DataOutcome$)
 
-
-
+prop_outcome <- function(commtype, data = DataOutcome) {
+  
+  output <- data %>% 
+    mutate(is_commtype = ifelse(comm_type == commtype, 1, 0),
+           initorder = row_number(),
+           OutcomeSollicitationReussie = ifelse(OutcomeSollicitationReussie %in% c(0, 0.25, 0.5), 0, 1),
+           OutcomeSollicitationReussie = ifelse(comm_type != "sollicitation", 0, OutcomeSollicitationReussie)) %>%
+    arrange(date_comm) %>% 
+    group_by(UL_NO_CODE) %>% 
+    mutate(n_commtype = cumsum(is_commtype),
+           n_commtype = ifelse(n_commtype == 0, 0, n_commtype-1),
+           cumsum_positive = cumsum(OutcomeSollicitationReussie),
+           cumsum_positive = ifelse(cumsum_positive == 0, 0, cumsum_positive-1)) %>% 
+    ungroup() %>% 
+    arrange(initorder) %>% 
+    mutate(proportion = cumsum_positive / n_commtype) %>%
+    select(date_comm, proportion)
+  
+  return(output)
+}
 
 
 
