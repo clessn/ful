@@ -13,8 +13,13 @@ datecomm <- as.Date("2015-04-12")
 
 datedon <- DataRep$historic_dateFirstDonation[DataRep$UL_NO_CODE == ul_id]
 
-#don_first <- function(ul_id, datecomm, datedon, data = DataRep){
-#}
+### vecteur ###
+
+vec_datecomm <- as.Date(c(DataComm$date_comm))
+vec_ul_id <- c(DataRep$UL_NO_CODE)
+vec_datedon <- as.Date(c(DataRep$historic_dateFirstDonation[DataRep$UL_NO_CODE == ul_id]))
+
+### fonction ###
 
 don_first <- function(ul_id, datecomm, datedon, data = DataRep){
   if (is.na(datedon)) {
@@ -28,6 +33,33 @@ don_first <- function(ul_id, datecomm, datedon, data = DataRep){
 
 result <- don_first(ul_id, datecomm, datedon)
 print(result)
+
+
+
+resultats <- numeric(length(vec_ul_id))
+
+for (i in 1:length(vec_ul_id)) {
+  id <- vec_ul_id[i]
+  datedon <- DataRep$historic_dateFirstDonation[DataRep$UL_NO_CODE == id]
+  resultats[i] <- don_first(id, datecomm, datedon)
+  if (i %% 100 == 0)  {
+    print(i)
+  }
+}
+
+
+print(resultats)
+
+
+
+
+
+
+
+
+
+
+
 
 
 
