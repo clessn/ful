@@ -5,8 +5,9 @@ get_n_comm <- function(commtype, data = DataComm){
            initorder = row_number()) %>%
     arrange(date_comm) %>% 
     group_by(UL_NO_CODE) %>% 
-    mutate(n = cumsum(is_commtype),
-           n = ifelse(n == 0, 0, n-1)) %>% 
+    mutate(n = cumsum(is_commtype)) %>%
+    group_by(UL_NO_CODE, comm_type) %>% 
+    mutate(rank = rank(date_comm))
     ungroup() %>% 
     arrange(initorder) %>% 
     pull(., n)
@@ -24,6 +25,7 @@ don_first <- function(datecomms, datedons, data = DataRep){
                    ifelse(datecomms >= datedons, 1, 0))
   return(output)
 }
+
 
 
 
