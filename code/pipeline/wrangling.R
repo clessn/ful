@@ -89,7 +89,8 @@ cumsum(DataOutcome$)
 
 prop_outcome <- function(commtype, data = DataOutcome) {
   
-  output <- data %>% 
+  output <- data %>%
+    filter(comm_type == "sollicitation") %>% 
     mutate(is_commtype = ifelse(comm_type == commtype, 1, 0),
            initorder = row_number(),
            OutcomeSollicitationReussie = ifelse(OutcomeSollicitationReussie %in% c(0, 0.25, 0.5), 0, 1),
@@ -98,11 +99,11 @@ prop_outcome <- function(commtype, data = DataOutcome) {
     group_by(UL_NO_CODE) %>% 
     mutate(n_commtype = cumsum(is_commtype),
            n_commtype = ifelse(n_commtype == 0, 0, n_commtype-1),
-           cumsum_positive = cumsum(OutcomeSollicitationReussie),
-           cumsum_positive = ifelse(cumsum_positive == 0, 0, cumsum_positive-1)) %>% 
+           cumsum_positive = cumsum(OutcomeSollicitationReussie)) %>% 
     ungroup() %>% 
     arrange(initorder) %>% 
-    mutate(proportion = cumsum_positive / n_commtype) %>%
+    mutate(cumsum_positive = ifelse(cumsum_positive == 0, 0, cumsum_positive-1),
+      proportion = cumsum_positive / n_commtype) %>%
     select(date_comm, proportion)
   
   return(output)
