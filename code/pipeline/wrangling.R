@@ -63,7 +63,7 @@ print(resultats)
 
 
 
-prop == à chaque date, voir (cumsum nb outcome positif)/(cumsum nb outcome total)
+#prop == à chaque date, voir (cumsum nb outcome positif)/(cumsum nb outcome total)
 
 
 
@@ -73,9 +73,7 @@ prop_outcome <- function(commtype, data = DataOutcome){
                    initorder = row_number()) %>%
     arrange(date_comm) %>% 
     group_by(UL_NO_CODE) %>% 
-    mutate(n = cumsum(is_commtype),
-           n = ifelse(n == 0, 0, n-1),
-           ) %>% 
+    mutate(n = cumsum(is_commtype)) %>% 
     ungroup() %>% 
     arrange(initorder) %>% 
     pull(., n)
@@ -98,7 +96,6 @@ prop_outcome <- function(commtype, data = DataOutcome) {
     arrange(date_comm) %>% 
     group_by(UL_NO_CODE) %>% 
     mutate(n_commtype = cumsum(is_commtype),
-           n_commtype = ifelse(n_commtype == 0, 0, n_commtype-1),
            cumsum_positive = cumsum(OutcomeSollicitationReussie)) %>% 
     ungroup() %>% 
     arrange(initorder) %>% 

@@ -59,4 +59,7 @@ CommWithStable$rolling_n_evenement <- get_n_comm("evenement")
 CommWithStable$rolling_n_remerciement <- get_n_comm("remerciement")
 CommWithStable$rolling_n_sondage <- get_n_comm("sondage")
 
+### Il faut savoir si la communication a été la dernière avant le premier don aussi. Ça va être la VD
+
+
 
