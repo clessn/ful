@@ -18,6 +18,8 @@ DataComm$date_first_donation <- dates_first_dons[DataComm$UL_NO_CODE]
 
 DataComm$has_donated_asof_date <- don_first(DataComm$date_comm, DataComm$date_first_donation)
 
+Main <- DataComm
+
 # Stable respondents variables --------------------------------------------
 
 ## 1. wrangle, select ------------------------------------------------------
@@ -44,22 +46,40 @@ for (sport in sports) {
     mutate(!!paste0("rosport_", sport) := apply(select(., starts_with("ro_sport")) == sport, 1, any))
 }
 
-RepSubset2 <- RepSubset %>%
+RepSubset <- RepSubset %>%
   select(-all_of(paste0("ro_sport_", 1:4))) %>% 
   mutate(across(starts_with("rosport_"), as.integer),
          across(starts_with("rosport_"), ~replace_na(.x, 0)))
 
-CommWithStable <- left_join(DataComm, RepSubset2, by = "UL_NO_CODE")
+Main <- left_join(Main, RepSubset, by = "UL_NO_CODE")
 
 # Add rolling comm variables ----------------------------------------------
 
-CommWithStable$rolling_n_sollicitation <- get_n_comm("sollicitation")
-CommWithStable$rolling_n_fidelisation <- get_n_comm("fidelisation")
-CommWithStable$rolling_n_evenement <- get_n_comm("evenement")
-CommWithStable$rolling_n_remerciement <- get_n_comm("remerciement")
-CommWithStable$rolling_n_sondage <- get_n_comm("sondage")
+Main$rolling_n_sollicitation <- get_n_comm("sollicitation")
+Main$rolling_n_fidelisation <- get_n_comm("fidelisation")
+Main$rolling_n_evenement <- get_n_comm("evenement")
+Main$rolling_n_remerciement <- get_n_comm("remerciement")
+Main$rolling_n_sondage <- get_n_comm("sondage")
+
 
 ### Il faut savoir si la communication a été la dernière avant le premier don aussi. Ça va être la VD
 
+#backup <- Main
 
+Main <- Main %>% 
+  arrange(date_comm) %>% 
+  group_by(UL_NO_CODE) %>%
+  mutate(rank = row_number(),
+         rank_last = rank - 1) %>% 
+  ungroup()
+
+NextComm <- Main %>% 
+  select(UL_NO_CODE, rank = rank_last, has_donated_next = has_donated_asof_date)
+
+Main <- left_join(Main, NextComm, by = c("UL_NO_CODE", "rank")) %>% 
+  mutate(delta_first_don = ifelse(has_donated_asof_date != has_donated_next, 1, 0)) %>% 
+  select(-c(starts_with("Outcome"), rank, rank_last, has_donated_next))
+
+
+saveRDS(Main, "_SharedFolder_fondation-ulaval/Data/pipeline/marts/data_for_models.rds")
 
