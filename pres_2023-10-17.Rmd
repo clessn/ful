@@ -1,0 +1,71 @@
+---
+title: "Analyse des donations à la FUL"
+date: "17 octobre 2023"
+fontsize: 12pt
+mainfont: Helvetica Neue
+output: 
+  beamer_presentation:
+    template: Theme_Pres_WPSA21.tex
+header-includes:
+  - \usepackage{lmodern}
+  - \usepackage{multicol}
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+# Structure de la présentation
+1. Retour sur les dernières présentations
+2. 
+3. 
+4. 
+5. 
+6. Prochaines étapes
+
+---
+
+# 1. Retour sur les dernières présentations
+
+
+# 2. Données de communications: analyses descriptives
+
+
+# Entonnoir de la causalité
+
+
+
+#  Données de communications: analyses et modèles
+
+
+# 3. Dashboard
+
+
+
+#... 
+
+
+
+# 4. Limitations
+
+
+
+
+
+# 5. Réponse positive aux communications
+
+
+
+# 6. Prochaines étapes
+
+- Modélisation
+
+- Questions précises
+
+- Probabilité par individu (indice global)
+  - Probabilité de donner
+  - Montant attendu
+  - Délai avant don
+
+- Suggestions pour collecte de données

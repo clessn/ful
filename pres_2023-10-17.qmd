@@ -1,0 +1,68 @@
+---
+title: "Analyse des donations à la FUL"
+date: "17 octobre 2023"
+output: beamer
+theme: "Berkeley"
+colortheme: "dolphin"
+fonttheme: "professionalfonts"
+---
+
+# Structure de la présentation
+
+\- Retour sur les dernières présentations
+
+\-
+
+\-
+
+\-\--
+
+# 1. Retour sur les dernières présentations
+
+Graph ![](images/delta_first_don_all.png)
+
+\-\--
+
+# 2. Données de communications: analyses descriptives
+
+Contenu de cette section...
+
+\-\--
+
+# Entonnoir de la causalité
+
+![](images/entonnoir-01.png)
+
+\-\--
+
+# Modèles prédictifs (vers l'ISC)
+
+Contenu de cette section...
+
+\-\--
+
+# 3. Tableau de bord
+
+Insérer l'image du dashboard
+
+\-\--
+
+# 4. Limitations
+
+Contenu de cette section...
+
+\-\--
+
+# 5. Solutions
+
+AWS
+
+Nicolas + Patrick + Unicorn
+
+Insérer l'image de la chaine!
+
+# 6. Prochaines étapes
+
+à partir de 2024
+
+Modèle prédictif complet sur AWS (et ses avantages)

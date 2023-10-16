@@ -1,40 +1,16 @@
-\documentclass[$if(fontsize)$$fontsize$,$endif$$if(lang)$$babel-lang$,$endif$$if(handout)$handout,$endif$$if(beamer)$ignorenonframetext,$endif$$for(classoption)$$classoption$$sep$,$endfor$$if(make149)$,aspectratio=149$endif$]{$documentclass$}
-$if(theme)$
-\usetheme{$theme$}
-$endif$
-$if(colortheme)$
-\usecolortheme{$colortheme$}
-$endif$
-$if(fonttheme)$
-\usefonttheme{$fonttheme$}
-$endif$
-$if(mainfont)$
+\documentclass[12pt,ignorenonframetext,]{beamer}
 \usefonttheme{professionalfonts} % use mainfont rather than sansfont for slide text
-$endif$
-$if(innertheme)$
-\useinnertheme{$innertheme$}
-$endif$
-$if(outertheme)$
-\useoutertheme{$outertheme$}
-$endif$
 \setbeamertemplate{caption}[numbered]
 \setbeamertemplate{caption label separator}{: }
 \setbeamercolor{caption name}{fg=normal text.fg}
 \setbeamersize{text margin left=10mm,text margin right=10mm} 
-$if(fontfamily)$
-\usepackage[$fontfamilyoptions$]{$fontfamily$}
-$else$
 \usepackage{lmodern}
-$endif$
 \usepackage{amssymb,amsmath}
 \usepackage{ifxetex,ifluatex}
 \usepackage{fixltx2e} % provides \textsubscript
 \ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \usepackage[$if(fontenc)$$fontenc$$else$T1$endif$]{fontenc}
+  \usepackage[T1]{fontenc}
   \usepackage[utf8]{inputenc}
-$if(euro)$
-  \usepackage{eurosym}
-$endif$
 \else % if luatex or xelatex
   \ifxetex
     \usepackage{mathspec}
@@ -43,22 +19,7 @@ $endif$
   \fi
   \defaultfontfeatures{Ligatures=TeX,Scale=MatchLowercase}
   \newcommand{\euro}{€}
-$if(mainfont)$
-    \setmainfont[$mainfontoptions$]{$mainfont$}
-$endif$
-$if(sansfont)$
-    \setsansfont[$sansfontoptions$]{$sansfont$}
-$endif$
-$if(monofont)$
-    \setmonofont[Mapping=tex-ansi$if(monofontoptions)$,$monofontoptions$$endif$]{$monofont$}
-$endif$
-$if(mathfont)$
-    \setmathfont(Digits,Latin,Greek)[$mathfontoptions$]{$mathfont$}
-$endif$
-$if(CJKmainfont)$
-    \usepackage{xeCJK}
-    \setCJKmainfont[$CJKoptions$]{$CJKmainfont$}
-$endif$
+    \setmainfont[]{Helvetica Neue}
 \fi
 % use upquote if available, for straight quotes in verbatim environments
 \IfFileExists{upquote.sty}{\usepackage{upquote}}{}
@@ -67,59 +28,6 @@ $endif$
 \usepackage{microtype}
 \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
 }{}
-$if(lang)$
-\ifxetex
-  \usepackage{polyglossia}
-  \setmainlanguage[$polyglossia-lang.options$]{$polyglossia-lang.name$}
-$for(polyglossia-otherlangs)$
-  \setotherlanguage[$polyglossia-otherlangs.options$]{$polyglossia-otherlangs.name$}
-$endfor$
-\else
-  \usepackage[shorthands=off,$babel-lang$]{babel}
-\fi
-$endif$
-$if(natbib)$
-\usepackage{natbib}
-\bibliographystyle{$if(biblio-style)$$biblio-style$$else$plainnat$endif$}
-$endif$
-$if(biblatex)$
-\usepackage{biblatex}
-$for(bibliography)$
-\addbibresource{$bibliography$}
-$endfor$
-$endif$
-$if(listings)$
-\usepackage{listings}
-$endif$
-$if(lhs)$
-\lstnewenvironment{code}{\lstset{language=Haskell,basicstyle=\footnotesize\ttfamily}}{}
-$endif$
-$if(highlighting-macros)$
-$highlighting-macros$
-$endif$
-$if(verbatim-in-note)$
-\usepackage{fancyvrb}
-\VerbatimFootnotes % allows verbatim text in footnotes
-$endif$
-$if(tables)$
-\usepackage{longtable,booktabs}
-\usepackage{caption}
-% These lines are needed to make table captions work with longtable:
-\makeatletter
-\def\fnum@table{\tablename~\thetable}
-\makeatother
-$endif$
-$if(graphics)$
-\usepackage{graphicx,grffile}
-\makeatletter
-\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
-\def\maxheight{\ifdim\Gin@nat@height>\textheight0.8\textheight\else\Gin@nat@height\fi}
-\makeatother
-% Scale images if necessary, so that they will not overflow the page
-% margins by default, and it is still possible to overwrite the defaults
-% using explicit options in \includegraphics[width, height, ...]{}
-\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
-$endif$
 
 % Comment these out if you don't want a slide with just the
 % part/section/subsection/subsubsection title:
@@ -139,54 +47,15 @@ $endif$
   \frame{\subsectionpage}
 }
 
-$if(links-as-notes)$
-% Make links footnotes instead of hotlinks:
-\renewcommand{\href}[2]{#2\footnote{\url{#1}}}
-$endif$
-$if(strikeout)$
-\usepackage[normalem]{ulem}
-% avoid problems with \sout in headers with hyperref:
-\pdfstringdefDisableCommands{\renewcommand{\sout}{}}
-$endif$
 \setlength{\emergencystretch}{3em}  % prevent overfull lines
 \providecommand{\tightlist}{%
   \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
-$if(numbersections)$
-\setcounter{secnumdepth}{5}
-$else$
 \setcounter{secnumdepth}{0}
-$endif$
-$if(dir)$
-\ifxetex
-  % load bidi as late as possible as it modifies e.g. graphicx
-  $if(latex-dir-rtl)$
-  \usepackage[RTLdocument]{bidi}
-  $else$
-  \usepackage{bidi}
-  $endif$
-\fi
-\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
-  \TeXXeTstate=1
-  \newcommand{\RL}[1]{\beginR #1\endR}
-  \newcommand{\LR}[1]{\beginL #1\endL}
-  \newenvironment{RTL}{\beginR}{\endR}
-  \newenvironment{LTR}{\beginL}{\endL}
-\fi
-$endif$
 
-$if(title)$
-\title{$title$}
-$endif$
-$if(subtitle)$
-\subtitle{$subtitle$}
-$endif$
-$if(author)$
-\author{$for(author)$$author$$sep$ \and $endfor$}
-$endif$
-\date{$date$}
-$for(header-includes)$
-$header-includes$
-$endfor$
+\title{Analyse des donations à la FUL}
+\date{17 octobre 2023}
+\usepackage{lmodern}
+\usepackage{multicol}
 
 %% Here's everything I added.
 %%--------------------------
@@ -212,11 +81,11 @@ $endfor$
 % Optional institute tags and titlegraphic.
 % Do feel free to change the titlegraphic if you don't want it as a Markdown field.
 %----------------------------------------------------------------------------------
-$if(institute)$\institute{$institute$}$endif$
+
 
 % \titlegraphic{\includegraphics[width=0.3\paperwidth]{\string~/Dropbox/teaching/clemson-academic.png}} % <-- if you want to know what this looks like without it as a Markdown field. 
 % -----------------------------------------------------------------------------------------------------
-$if(titlegraphic)$\titlegraphic{\includegraphics[width=0.3\paperwidth]{\string~$titlegraphic$}}$endif$
+
 
 % Some additional title page adjustments.
 %----------------------------------------
@@ -296,8 +165,8 @@ $if(titlegraphic)$\titlegraphic{\includegraphics[width=0.3\paperwidth]{\string~$
 
 % Adjust some item elements. More cosmetic things.
 %-------------------------------------------------
-\setbeamertemplate{itemize item}{\color{black}$$\bullet$$}
-\setbeamertemplate{itemize subitem}{\color{black}\scriptsize{$$\bullet$$}}
+\setbeamertemplate{itemize item}{\color{black}$\bullet$}
+\setbeamertemplate{itemize subitem}{\color{black}\scriptsize{$\bullet$}}
 \setbeamertemplate{itemize/enumerate body end}{\vspace{.5\baselineskip}} % So I'm less inclined to use \medskip and \bigskip in Markdown.
 
 % Automatically center images
@@ -321,8 +190,8 @@ $if(titlegraphic)$\titlegraphic{\includegraphics[width=0.3\paperwidth]{\string~$
 % I could customize/generalize this more but the truth is it works for my circumstances.
 
 \ifxetex
-\setbeamerfont{title}{family=\fontspec{$if(titlefont)$$titlefont$$else$serif$endif$}}
-\setbeamerfont{frametitle}{family=\fontspec{$if(titlefont)$$titlefont$$else$serif$endif$}}
+\setbeamerfont{title}{family=\fontspec{serif}}
+\setbeamerfont{frametitle}{family=\fontspec{serif}}
 \usepackage[font=footnotesize,skip=0pt]{caption}
  \else
  \fi
@@ -330,47 +199,84 @@ $if(titlegraphic)$\titlegraphic{\includegraphics[width=0.3\paperwidth]{\string~$
 % Okay, and begin the actual document...
 
 \begin{document}
-$if(title)$
 \frame{\titlepage}
-$endif$
 
-$for(include-before)$
-$include-before$
-
-$endfor$
-$if(toc)$
-\begin{frame}
-\tableofcontents[hideallsubsections]
+\begin{frame}{Structure de la présentation}
+\protect\hypertarget{structure-de-la-pruxe9sentation}{}
+\begin{enumerate}
+\tightlist
+\item
+  Retour sur les dernières présentations
+\item
+  Quand survient le premier don?
+\item
+  Rouge et Or
+\item
+  Dons planifiés et héritages
+\item
+  Réponse positive aux communications
+\item
+  Prochaines étapes
+\end{enumerate}
 \end{frame}
 
-$endif$
-$body$
-
-$if(natbib)$
-$if(bibliography)$
-$if(biblio-title)$
-$if(book-class)$
-\renewcommand\bibname{$biblio-title$}
-$else$
-\renewcommand\refname{$biblio-title$}
-$endif$
-$endif$
-\begin{frame}[allowframebreaks]{$biblio-title$}
-\bibliography{$for(bibliography)$$bibliography$$sep$,$endfor$}
+\begin{frame}{1. Retour sur les dernières présentations}
+\protect\hypertarget{retour-sur-les-derniuxe8res-pruxe9sentations}{}
 \end{frame}
 
-$endif$
-$endif$
-$if(biblatex)$
-\begin{frame}[allowframebreaks]{$biblio-title$}
-\printbibliography[heading=none]
+\begin{frame}{2. Données de communications: analyses descriptives}
+\protect\hypertarget{donnuxe9es-de-communications-analyses-descriptives}{}
 \end{frame}
 
-$endif$
-$for(include-after)$
-$include-after$
+\begin{frame}{Entonnoir de la causalité}
+\protect\hypertarget{entonnoir-de-la-causalituxe9}{}
+\end{frame}
 
-$endfor$
+\begin{frame}{Données de communications: analyses et modèles}
+\protect\hypertarget{donnuxe9es-de-communications-analyses-et-moduxe8les}{}
+\end{frame}
+
+\begin{frame}{3. Dashboard}
+\protect\hypertarget{dashboard}{}
+\#\ldots{}
+\end{frame}
+
+\begin{frame}{4. Dons planifiés et héritages}
+\protect\hypertarget{dons-planifiuxe9s-et-huxe9ritages}{}
+\end{frame}
+
+\begin{frame}{Professeurs et héritages}
+\protect\hypertarget{professeurs-et-huxe9ritages}{}
+\end{frame}
+
+\begin{frame}{5. Réponse positive aux communications}
+\protect\hypertarget{ruxe9ponse-positive-aux-communications}{}
+\end{frame}
+
+\begin{frame}{6. Prochaines étapes}
+\protect\hypertarget{prochaines-uxe9tapes}{}
+\begin{itemize}
+\item
+  Modélisation
+\item
+  Questions précises
+\item
+  Probabilité par individu (indice global)
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Probabilité de donner
+  \item
+    Montant attendu
+  \item
+    Délai avant don
+  \end{itemize}
+\item
+  Suggestions pour collecte de données
+\end{itemize}
+\end{frame}
+
 
 
 
