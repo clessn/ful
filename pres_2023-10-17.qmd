@@ -10,23 +10,16 @@ editor: visual
 
 # Structure de la présentation
 
-- Retour sur les dernières présentations
-- Données de communications
-  - Analyses descriptives
-  - Entonnoir de la causalité
-  - Modèles prédictifs (vers l'ISC)
-- Tableau de bord
-- Limitations 
-- Solutions
-- Prochaines étapes
-
-
+-   Retour sur les dernières présentations
+-   Données de communications
+    -   Analyses descriptives
+    -   Entonnoir de la causalité
+    -   Modèles prédictifs (vers l'ISC)
+-   Limitations
+-   Solutions
+-   Prochaines étapes
 
 # 1. Retour sur les dernières présentations
-
-![](images/delta_first_don_all.png)
-
-
 
 # 2. Données de communications
 
@@ -40,9 +33,10 @@ editor: visual
 
 # Modèles prédictifs (vers l'ISC)
 
-# graph 2: 
-y=prob donner / x= n_soll / 1 ligne par groupe de year_first_grad
- 
+# Probabilité du premier don selon le nombre de sollicitations
+
+![](_SharedFolder_fondation-ulaval/graphs/probSollDecade.png)
+
 # graph 3
 
 Facet wrap avec programmes
@@ -51,30 +45,18 @@ Facet wrap avec programmes
 
 avec sports
 
-\-\--
 
-# 3. Tableau de bord
+# 3. Limitations
 
-Insérer l'image du dashboard
+- Matérielles
+- Techniques
 
-\-\--
-
-# 4. Limitations
-
-Contenu de cette section...
-
-\-\--
-
-# 5. Solutions
-
-AWS
-
-Nicolas + Patrick + Unicorn
+# 4. Solutions
 
 Insérer l'image de la chaine!
 
-# 6. Prochaines étapes
+# 5. Prochaines étapes
 
-à partir de 2024
-
-Modèle prédictif complet sur AWS (et ses avantages)
+- Début 2024, aide des programmeurs sur le projet (après MVP)
+  - Modèle prédictif complet sur AWS (et ses avantages)
+- Tableau de bord
