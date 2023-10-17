@@ -23,28 +23,23 @@ editor: visual
 
 # 2. Données de communications
 
-# Entonnoir de la causalité
+## Entonnoir de la causalité
 
 ![](_SharedFolder_fondation-ulaval/graphs/ful.png)
 
-# Analyses descriptives
+## Analyses descriptives
 
 ![](_SharedFolder_fondation-ulaval/graphs/facetWrapCommType.png)
 
 # Modèles prédictifs (vers l'ISC)
 
-# Probabilité du premier don selon le nombre de sollicitations
+## Probabilité du premier don selon le nombre de sollicitations
 
 ![](_SharedFolder_fondation-ulaval/graphs/probSollDecade.png)
 
-# graph 3
+## Probabilité du premier don selon le programme
 
-Facet wrap avec programmes
-
-# graph 4
-
-avec sports
-
+![](_SharedFolder_fondation-ulaval/graphs/pres/graph1.png)
 
 # 3. Limitations
 
@@ -53,7 +48,7 @@ avec sports
 
 # 4. Solutions
 
-Insérer l'image de la chaine!
+![](_SharedFolder_fondation-ulaval/graphs/2.png)
 
 # 5. Prochaines étapes
 
